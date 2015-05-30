@@ -523,48 +523,12 @@ public class FragmentMessageTree extends Fragment implements IOnMessagesReceived
         inputManager.hideSoftInputFromWindow(text.getWindowToken(), 0);
     }
 
-    //private String readUserFromFile() {
-//
-    //    String ret = "";
-//
-    //    try {
-    //        InputStream inputStream =  getActivity().openFileInput(mConfigTxtFile);
-//
-    //        if ( inputStream != null ) {
-    //            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-    //            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-    //            String receiveString = "";
-    //            StringBuilder stringBuilder = new StringBuilder();
-//
-    //            while ( (receiveString = bufferedReader.readLine()) != null ) {
-    //                stringBuilder.append(receiveString);
-    //            }
-//
-    //            inputStream.close();
-    //            ret = stringBuilder.toString();
-    //        }
-    //    }
-    //    catch (FileNotFoundException e) {
-    //        Log.e("login activity", "File not found: " + e.toString());
-    //    } catch (IOException e) {
-    //        Log.e("login activity", "Can not read file: " + e.toString());
-    //    }
-//
-    //    return ret;
-    //}
-
-    //todo: replace this by a service that will query the data
-    //class UpdateMessages extends TimerTask {
-    //    public void run() {
-    //        //calculate the new position of myBall
-    //        refreshMessages();
-    //    }
-    //}
-
     private void refreshMessages() {
-        //mCloudEngine.GetMessages(UUID.fromString(mProduct2.Id), true);
-        DataApiResult<List<DataMessage>> messages =  mPhoneEngine.getMessagesByProductId2(mProduct2.Id.toString());
-        fireOnMessagessReceived(messages.Result);
+        mCloudEngine.GetMessages(UUID.fromString(mProduct2.Id), true);
+
+        //todo : make this work - currently for new added products, this does not
+        //DataApiResult<List<DataMessage>> messages =  mPhoneEngine.getMessagesByProductId2(mProduct2.Id.toString());
+        //fireOnMessagessReceived(messages.Result);
     }
 
 
