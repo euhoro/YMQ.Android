@@ -1,0 +1,6 @@
+The application would like to help friends sharing products that are no longer needed
+The flow is simple
+	login
+	publish product
+	friends receive notifications
+	friends can chat about it
