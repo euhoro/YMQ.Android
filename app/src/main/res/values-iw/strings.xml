@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ymarq</string>
+    <string name="hello_world">Ymarq שלום עולם!</string>
+    <string name="product_name">מוצר:</string>
+    <string name="action_settings">הגדרות</string>
+    <string name="btn_cam">+</string>
+    <string name="btn_buy">מכור</string>
+    <string name="hello_blank_fragment">שלום בר ריק</string>
+    <string name="action_refresh">רענן</string>
+    <string name="action_camera">הוסיף מוצר</string>
+    <string name="action_send_message">>></string>
+    <string name="action_delete_product">מחק</string>
+    <string name="action_add_subscription">חפש</string>
+    <string name="action_add_product">הוסיף מוצר חדש</string>
+    <string name="title_activity_seller_chat">ציט</string>
+    <string name="service_name">MyService1</string>
+    <string name="service_name_worker">WorkerService</string>
+    <string name="service_dream_name">DreamService</string>
+    <string name="title_activity_settings">הגדרות</string>
+    <string name="pref_baseurl_label">BaseUrl</string>
+    <string name="pref_baseurl_key">baseurl</string>
+    <string name="pref_baseurl_default"></string>
+    <string name="pref_baseurl_default3">http://10.0.0.3:9090</string>
+    <string name="pref_baseurl_default4">http://ymarq.cloudapp.net</string>
+    <string name="pref_server_label">ServerUrl</string>
+    <string name="pref_server_key">ServerUrl</string>
+    <string name="pref_server_azure">http://ymarq.azurewebsites.net</string>
+    <string name="text1">טקסט</string>
+    <string name="action_map">מפה</string>
+    <string name="action_news">הודעות</string>
+    <string name="action_share">שתף</string>
+    <!--<string name="title_activity_buyer">מוכר</string>-->
+    <string name="title_activity_buyer_subscription_products">חיפושים</string>
+    <!--<string name="title_activity_buyer_chat">ציט</string>-->
+    <string name="lbl_ok">אישור</string>
+    <string name="lbl_cancel">ביטול</string>
+    <string name="lbl_title">ביטול</string>
+    <string name="lbl_comment">תגובה</string>
+    <string name="title_activity_ymarq">title_activity_ymarq</string>
+
+    <string name="title_activity_chat_rooms">חדרים</string>
+    <string name="big_text_for_notification">זה הודעה כי היישום אם נתקל בקשיי שאילתות נתונים</string>
+    <string name="title_activity_simple_list">SimpleListActivity</string>
+    <string name="title_activity_simple_picture">תמונת המוצר</string>
+    <string name="title_activity_simple_text">SimpleTextActivity</string>
+    <string name="title_section_sell">מכור</string>
+    <string name="title_section_buy">קנה</string>
+    <string name="title_section_notifications">הודעות</string>
+    <string name="title_activity_image_viewer">ImageViewer</string>
+    <string name="title_activity_main_tabbed">Ymarq</string>
+    <string name="title_section_friends">חברים</string>
+    <string name="title_section_action">לחץ</string>
+    <string name="main_empty_list">אין הודעות</string>
+    <string name="pref_refresh_interval_label">קצב קבלת הודעות - דקות</string>
+    <string name="pref_refresh_interval_key">refresh_interval</string>
+    <string name="pref_refresh_interval_default">2</string>
+    <string name="pref_notification_get_label">קבל הודעות מ:</string>
+    <string name="pref_notification_send_label">שלח הודעות ל:</string>
+    <string name="pref_notification_get_key">update_mode</string>
+    <string name="pref_notification_send_key">updated_mode</string>
+
+    <string name="pref_update_mode_default">כולם</string>
+    <string name="title_activity_contacts_activity_new">חברים</string>
+    <string name="title_activit_subscriptions_new">חיפושים שמורים</string>
+    <string name="title_activity_contacts_subscriptions_new">Subscriptions</string>
+    <string name="title_activity_news_activity_new">הודעות</string>
+    <string name="action_contacts">חברים</string>
+    <string name="action_subscriptions">חיפושים שמורים</string>
+    <string name="lbl_select_all">כולם</string>
+    <string name="lbl_select_none">אף אחד</string>
+    <string name="lbl_name">שם:</string>
+    <string name="lbl_telephone">טל:</string>
+    <string name="descr_image">פרטים</string>
+    <string name="title_activity_message_tree">שיחות</string>
+    <string name="activity_message_tree_center_label">.</string>
+
+    <string name="action_send_message_private">-></string>
+    <string name="title_activity_send_sms">SendSmsActivity</string>
+
+    <string name="label_notify_friends">"           שלח לחברים            "</string>
+    <string name="label_give_away">"            למסירה            "</string>
+    <string name="label_ok">"אשר"</string>
+    <string name="label_cancel">"בטל"</string>
+    <string name="label_add_new_product_description">"הוסיף שם המוצר"</string>
+    <string name="label_login_different_email">"פרטים שונים - נא להיכנס עם הפרטים הקודמים - לחץ שוב"</string>
+    <string name="label_login_different_name">"פרטים שונים - נא להיכנס עם הפרטים הקודמים - לחץ שוב"</string>
+    <string name="label_login_different_phone">"פרטים שונים - נא להיכנס עם הפרטים הקודמים - לחץ שוב"</string>
+    <string name="label_login_failed">"התהליך נכשל . אנא נסה שוב"</string>
+    <string name="label_login_previous_data_found">"נמצא משתמש מהטלפון זה"</string>
+
+    <string name="label_invitation">"היי ! תצטרפי לוואי-מארק כדי לראות מה שאני מוכר \ קונה \ מוסר "</string>
+
+
+    <string name="sign_in_terms">By creating an account, I accept YMarq terms and privacy policy</string>
+
+
+    <string name="notification_title_potential_buyers">הקונה ענה על</string>
+    <string name="notification_title_seller_answer">המוכר ענה על</string>
+
+    <string name="notification_title_new_product">מוצר חדש</string>
+    <string name="notification_title_multiple_notifications">הגיעו נוטיפיקציות חדשות</string>
+    <string name="notification_total_notifications">סה"כ: </string>
+    <string name="notification_title_have_answered">ענו לך</string>
+
+
+    <string name="notification_title_product">מוצר:</string>
+    <string name="label_remember_choice">הרא במכירה</string>
+
+    <string name="pref_show_contacts_on_add_product_label">הרא חברים</string>
+    <string name="pref_pref_show_contacts_on_add_product_key">show_contacts</string>
+    <string name="pref_show_contacts_on_add_product_default">false</string>
+    <string name="pref_baseurl_default5">http://ymarq.cloudapp.net</string>
+    <string name="error_invalid_gcm">Network error </string>
+    <!-- Account type (for sync-adapter authenticator) -->
+    <!-- SyncAdapter related -->
+    <string name="sync_account_type">com.ymarq.eu.sync.Ymarq</string>
+    <string name="content_authority">com.ymarq.eu.ymarq.app</string>
+
+    <string name="label_add_new_subscription_description">"הוסיף חיפוש"</string>
+    <string name="label_subscription_description">"שם המוצר"</string>
+
+    <string name="label_add_new_message">"Send new message :"</string>
+    <string name="label_message">"Description"</string>
+    <string name="pref_update_mode_key">update_mode</string>
+</resources>

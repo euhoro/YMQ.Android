@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    android:id="@+id/subscription_list_item">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subscription_icon"
+        android:src="@drawable/ic_launcher"/>
+    <TextView
+        android:text="999"
+        android:textStyle="bold"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/subscription_product_count"
+        android:padding="8dp"
+        android:layout_toRightOf="@+id/subscription_icon"/>
+    <TextView
+        android:text="dummy text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subscription_title"
+        android:padding="8dp"
+        android:layout_below="@+id/subscription_product_count"
+        android:layout_toRightOf="@+id/subscription_icon"/>
+    <Button
+        android:text="¯"
+        android:textColor="@color/textColor"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/subscription_button"
+        android:padding="8dp"
+
+        android:background="@drawable/round_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+</RelativeLayout>

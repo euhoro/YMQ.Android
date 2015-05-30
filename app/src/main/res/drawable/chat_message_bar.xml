@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="10dp"
+    android:shape="rectangle" >
+
+    <gradient
+        android:centerColor="@color/barLightColorChat"
+        android:endColor="@color/barLightColorChat"
+        android:startColor="@color/barLightColorChat"
+        android:angle="-90" />
+
+    
+
+</shape>

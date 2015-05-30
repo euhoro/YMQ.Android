@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/green_light" />
+    <corners android:topRightRadius="@dimen/text_bubble_radius" android:bottomLeftRadius="@dimen/text_bubble_radius" android:bottomRightRadius="@dimen/text_bubble_radius" />
+    <padding android:left="@dimen/text_bubble_padding" android:top="@dimen/text_bubble_padding" android:right="@dimen/text_bubble_padding" android:bottom="@dimen/text_bubble_padding" />
+</shape>

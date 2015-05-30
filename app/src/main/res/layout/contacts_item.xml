@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/iconContacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_account_circle_grey600_48dp"
+        android:layout_alignParentTop="true"/>
+   <TextView
+       android:id="@+id/name_label"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_toRightOf="@+id/iconContacts"
+       android:layout_alignParentTop="true"
+       android:layout_marginTop="17dp"
+       android:textColor="@color/textFieldColor"
+       android:text="@string/lbl_name">
+    </TextView>
+
+    <CheckBox
+        android:id="@+id/statusCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/name_label"
+        android:layout_marginTop="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+    <!--http://www.mysamplecode.com/2012/07/android-listview-checkbox-example.html
+    the 2 properties were added so the onclick of the item will work-->
+    <TextView
+        android:id="@+id/notify_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/statusCheckBox"
+        android:layout_alignBaseline="@+id/name_label"
+        android:text="notify"
+        android:textColor="@color/textFieldColor">
+    </TextView>
+    <ImageView
+        android:id="@+id/iconHasApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@id/notify_label"
+        android:src="@drawable/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/telephone_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iconContacts"
+        android:layout_below="@+id/name_label"
+        android:text="@string/lbl_telephone"
+        android:textColor="@color/textFieldColor"
+        android:visibility="gone"
+       >
+    </TextView>
+
+</RelativeLayout>

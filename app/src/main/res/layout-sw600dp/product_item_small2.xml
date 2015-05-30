@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:layout_gravity="center" android:id="@+id/card_view" android:layout_width="wrap_content" android:layout_height="wrap_content" card_view:cardBackgroundColor="#ffffffff" card_view:cardCornerRadius="0.0dip" card_view:cardElevation="1.0dip"
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:padding="5.0dip">
+        <com.ymarq.eu.common.view.MarkableImageView
+            android:id="@+id/image"
+            android:contentDescription="@string/descr_image"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop">
+        </com.ymarq.eu.common.view.MarkableImageView>
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:max="100"
+            android:layout_gravity="bottom"
+            style="@style/UniversalProgressBarStyle"/>
+        <TextView android:text="123" android:textSize="14.0sp" android:textColor="#ff000000" android:id="@+id/text_view_description" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/image" android:visibility="gone" />
+        <!--<TextView  android:text="456" android:textSize="18.0sp" android:textColor="#ff000000" android:id="@+id/titleTextView" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_below="@id/text_view_description" />
+        <TextView  android:text="789" android:textSize="16.0sp" android:textColor="#ff000000" android:id="@+id/priceAndConditionTextView" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/titleTextView" />
+        <TextView  android:text="999" android:textSize="16.0sp" android:textColor="#ff000000" android:autoLink="all" android:id="@+id/descrTextView" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/priceAndConditionTextView" />
+        <ImageView android:id="@+id/locationIconImageView" android:layout_width="18.0dip" android:layout_height="18.0dip" android:layout_marginTop="5.0dip" android:src="@drawable/ic_launcher" android:layout_below="@id/descrTextView" />
+        <TextView  android:text="333" android:textSize="14.0sp" android:textColor="#ff000000" android:id="@+id/distanceFromMeTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip"
+            android:layout_below="@id/descrTextView"/>-->
+        <ImageView android:id="@+id/iconImageEnvelope" android:visibility="invisible" android:layout_width="18.0dip" android:layout_height="18.0dip" android:layout_marginTop="5.0dip" android:src="@drawable/ic_launcher" android:layout_below="@id/image" />
+        <ImageView android:id="@+id/iconFriends" android:layout_width="18.0dip" android:layout_height="18.0dip" android:layout_marginTop="5.0dip" android:src="@drawable/ic_supervisor_account_grey600_36dp" android:layout_below="@id/image"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+        <ImageView android:id="@+id/iconGiveAway" android:layout_width="18.0dip" android:layout_height="18.0dip" android:layout_marginTop="5.0dip" android:src="@drawable/ic_redeem_grey600_36dp" android:layout_below="@id/image" android:layout_toLeftOf="@+id/iconFriends"></ImageView>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

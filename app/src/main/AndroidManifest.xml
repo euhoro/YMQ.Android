@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ymarq.eu.ymarq" >
+
+    <uses-sdk
+        android:minSdkVersion="17"
+        android:targetSdkVersion="18" />
+
+    <!-- Permissions required by the google cloud system adapter -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.ymarq.eu.ymarq.permission.C2D_MESSAGE" />
+
+    <permission
+        android:name="com.ymarq.eu.ymarq.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <!-- Permissions required by the app to function in the fist place ( login) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Permissions required to store the images -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- Permissions required to know what is the email - can be dismissed -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+
+    <!-- Permissions required by the system to know who are your friends -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- Permissions required by product - to know where it is -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Permissions required by the notificationservice - no longer neede -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Permissions required to know what country the user in -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- Permissions required by the sync adapter -->
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
+    <!-- <uses-permission android:name="android.permission.SEND_SMS"/> -->
+    <application
+        android:name="com.ymarq.eu.YmarqApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="DATABASE"
+            android:value="ymarq_sugar.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="8" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.ymarq.eu.ymarq" />
+
+        <!--
+        <provider
+            android:name="com.ymarq.eu.data.ProductsProvider"
+            android:authorities="com.ymarq.eu.ymarq.app" >
+        </provider>
+        -->
+
+
+        <!-- android:authorities="@string/content_authority" -->
+        <provider
+            android:name="com.ymarq.eu.data.ProductsProvider"
+            android:authorities="com.ymarq.eu.ymarq.app"
+            android:exported="false"
+            android:syncable="true" />
+
+        <activity
+            android:name="com.ymarq.eu.login.LoginActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ymarq.eu.messages.MessageActivity"
+            android:label="@string/title_activity_seller_chat"
+            android:parentActivityName="com.ymarq.eu.activities.MainTabbedActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ymarq.eu.activities.MainTabbedActivity" />
+        </activity>
+        <activity
+            android:name="com.ymarq.eu.activities.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="com.ymarq.eu.activities.MainTabbedActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ymarq.eu.activities.MainTabbedActivity" />
+        </activity>
+        <activity
+            android:name="com.ymarq.eu.products.BuyerProductsActivity"
+            android:label="@string/title_activity_buyer_subscription_products"
+            android:parentActivityName="com.ymarq.eu.activities.MainTabbedActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ymarq.eu.activities.MainTabbedActivity" />
+        </activity>
+
+        <service
+            android:name="com.ymarq.eu.services.MyWorkerService3"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/service_name_worker" >
+            <intent-filter>
+                <action android:name="com.ymarq.eu.ymarq.DO_WORK" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="com.ymarq.eu.activities.ImageViewActivity"
+            android:label="@string/title_activity_image_viewer"
+            android:parentActivityName="com.ymarq.eu.activities.MainTabbedActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ymarq.eu.activities.MainTabbedActivity" />
+        </activity>
+
+        <service
+            android:name="com.ymarq.eu.notifications.DreamService"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/service_name" >
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.ymarq.eu.services.MyScheduleReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="PACKAGE_NAME.android.action.broadcast" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.ymarq.eu.services.MyStartServiceReceiver" >
+        </receiver>
+
+        <activity
+            android:name="com.ymarq.eu.notifications.SimpleListActivity"
+            android:label="@string/title_activity_simple_list" >
+        </activity>
+        <activity
+            android:name="com.ymarq.eu.notifications.SimplePictureActivity"
+            android:label="@string/title_activity_simple_picture" >
+        </activity>
+        <activity
+            android:name="com.ymarq.eu.notifications.SimpleTextActivity"
+            android:label="@string/title_activity_simple_text" >
+        </activity>
+
+        <service
+            android:name="com.ymarq.eu.services.NotificationsService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <activity
+            android:name="com.ymarq.eu.activities.MainTabbedActivity"
+            android:label="@string/title_activity_main_tabbed"
+            android:parentActivityName="com.ymarq.eu.login.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ymarq.eu.login.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.ymarq.eu.contacts.ContactsActivityNew"
+            android:label="@string/title_activity_contacts_activity_new"
+            android:parentActivityName="com.ymarq.eu.activities.MainTabbedActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ymarq.eu.activities.MainTabbedActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ymarq.eu.subscriptions.SubscriptionActivity"
+            android:label="@string/title_activity_contacts_subscriptions_new"
+            android:parentActivityName="com.ymarq.eu.activities.MainTabbedActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ymarq.eu.activities.MainTabbedActivity" />
+        </activity>
+        <activity
+            android:name="com.ymarq.eu.news.NewsActivityNew"
+            android:label="@string/title_activity_news_activity_new"
+            android:parentActivityName="com.ymarq.eu.activities.MainTabbedActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ymarq.eu.activities.MainTabbedActivity" />
+        </activity>
+        <activity
+            android:name="com.ymarq.eu.messagestree.MessageTreeActivity"
+            android:label="@string/title_activity_message_tree"
+            android:parentActivityName="com.ymarq.eu.activities.MainTabbedActivity"
+            android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ymarq.eu.activities.MainTabbedActivity" />
+        </activity>
+
+        <service
+            android:name="com.ymarq.eu.services.DeviceService"
+            android:exported="false" >
+        </service>
+
+        <receiver
+            android:name="com.ymarq.eu.services.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.ymarq.eu.android.action.broadcast.gcm" />
+                <!-- <action android:name="com.google.android.c2dm.intent.REGISTRATION" /> -->
+                <category android:name="com.ymarq.eu.ymarq" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.ymarq.eu.services.GcmIntentService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
+
+        <!-- SyncAdapter's dummy authentication service -->
+        <service android:name="com.ymarq.eu.sync.YmarqAuthenticatorService" >
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+
+        <!-- The SyncAdapter service -->
+        <service
+            android:name="com.ymarq.eu.sync.YmarqSyncService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter" />
+        </service>
+
+    </application>
+
+</manifest>

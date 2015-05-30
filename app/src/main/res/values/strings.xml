@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ymarq</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="product_name">Product:</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_cam">+</string>
+    <string name="btn_buy">Buy</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_camera">Add Product</string>
+    <string name="action_send_message">>></string>
+    <string name="action_delete_product">Del</string>
+    <string name="action_add_subscription">Search</string>
+    <string name="action_add_product">Add new product</string>
+    <string name="title_activity_seller_chat">Messages</string>
+    <string name="service_name">MyService1</string>
+    <string name="service_name_worker">WorkerService</string>
+    <string name="service_dream_name">DreamService</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="pref_baseurl_label">BaseUrl</string>
+    <string name="pref_baseurl_key">baseurl</string>
+    <string name="pref_baseurl_default"></string>
+    <string name="pref_baseurl_default3">http://10.0.0.3:9090</string>
+    <string name="pref_baseurl_default4">http://ymarqapi.cloudapp.net</string>
+    <string name="pref_server_label">ServerUrl</string>
+    <string name="pref_server_key">ServerUrl</string>
+    <string name="pref_server_azure">http://ymarq.azurewebsites.net</string>
+    <string name="text1">text</string>
+    <string name="action_map">Map</string>
+    <string name="action_news">News</string>
+    <string name="action_share">Share</string>
+    <string name="lbl_ok">Ok</string>
+    <string name="lbl_cancel">Cancel</string>
+    <string name="lbl_title">Cancel</string>
+    <string name="lbl_comment">Comment</string>
+    <string name="title_activity_ymarq">Ymarq</string>
+    <string name="title_activity_chat_rooms">Chat Rooms</string>
+    <string name="title_activity_image_viewer">ImageViewer</string>
+    <string name="big_text_for_notification">This is an announcement that the application if having difficulties querying data  </string>
+    <string name="title_activity_simple_list">Simple List Activity</string>
+    <string name="title_activity_simple_picture">Simple Picture Activity</string>
+    <string name="title_activity_simple_text">Simple Text Activity</string>
+    <string name="title_activity_main_tabbed">Ymarq</string>
+    <string name="title_section_buy">Buy</string>
+    <string name="title_section_sell">Sell</string>
+    <string name="title_section_notifications">News</string>
+    <string name="title_section_friends">Friends</string>
+    <string name="title_section_action">Button</string>
+    <string name="main_empty_list">There is no recent conversation, write new message
+		to start one.</string>
+    <string name="pref_refresh_interval_label">RefreshInterval (minutes)</string>
+    <string name="pref_refresh_interval_key">refresh_interval</string>
+    <string name="pref_refresh_interval_default">60</string>
+    <string name="pref_notification_send_label">Notify others </string>
+    <string name="pref_notification_get_label">Get notifications from </string>
+    <string name="pref_notification_get_key">update_mode</string>
+    <string name="pref_notification_send_key">updated_mode</string>
+    <string name="pref_update_mode_default">All</string>
+    <string name="title_activity_contacts_activity_new">Contacts</string>
+    <string name="title_activity_contacts_subscriptions_new">Subscriptions</string>
+    <string name="title_activity_news_activity_new">News</string>
+    <string name="action_contacts">Contacts</string>
+    <string name="action_subscriptions">Subscriptions</string>
+    <string name="lbl_select_all">All</string>
+    <string name="lbl_select_none">None</string>
+    <string name="lbl_name">Name:</string>
+    <string name="lbl_telephone">Phone:</string>
+    <string name="descr_image">Image Desription</string>
+    <string name="title_activity_message_tree">Messages</string>
+    <string name="activity_message_tree_center_label"></string>
+
+    <string name="action_send_message_private">-></string>
+    <string name="title_activity_send_sms">Send Sms Activity</string>
+
+    <string name="label_notify_friends">"Notify friends"</string>
+    <string name="label_give_away">"Give away"</string>
+    <string name="label_ok">"Ok"</string>
+    <string name="label_cancel">"Cancel"</string>
+    <string name="label_add_new_product_description">"Add new Product description"</string>
+    <string name="label_login_different_email">"Different email from last time - please press login again"</string>
+    <string name="label_login_different_name">"Different name from last time - please press login again"</string>
+    <string name="label_login_different_phone">"Different phone from last time - please login again"</string>
+    <string name="label_login_failed">"The login has failed.Please try again later"</string>
+    <string name="label_login_previous_data_found">"Previous different data found for this device"</string>
+
+    <string name="label_invitation">"Hi, join me on Ymarq to check my items for sale and stuff I am looking for"</string>
+
+    <string name="title_activity_buyer_subscription_products">Products found :</string>
+
+    <string name="notification_title_potential_buyers">Buyer answered on </string>
+    <string name="notification_title_seller_answer">Seller answered on </string>
+
+    <string name="notification_title_new_product">New product</string>
+    <string name="notification_title_multiple_notifications">Multiple notifications arrived: !</string>
+    <string name="notification_total_notifications">Total: </string>
+    <string name="notification_title_have_answered">answered you on </string>
+
+
+    <string name="notification_title_product">Product:</string>
+    <string name="label_remember_choice">Show on sale</string>
+
+    <string name="pref_show_contacts_on_add_product_label">Show contacts on sell</string>
+    <string name="pref_pref_show_contacts_on_add_product_key">show_contacts</string>
+    <string name="pref_show_contacts_on_add_product_default">false</string>
+    <string name="pref_baseurl_default5">http://ymarq.cloudapp.net</string>
+
+    <!-- Account type (for sync-adapter authenticator) -->
+    <!-- SyncAdapter related -->
+    <string name="sync_account_type">com.ymarq.eu.sync.Ymarq</string>
+    <string name="content_authority">com.ymarq.eu.ymarq.app</string>
+
+    <string name="label_add_new_subscription_description">"Add new Subscription description"</string>
+    <string name="label_subscription_description">"Add new Product description"</string>
+
+
+    <string name="label_add_new_message">"Send new message :"</string>
+    <string name="label_message">"Description"</string>
+    <string name="pref_update_mode_key">update_mode</string>
+    <string name="title_activit_subscriptions_new">Previous searches </string>
+
+</resources>

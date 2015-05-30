@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ymarq</string>
+    <string name="hello_world">Bună ziua lume!</string>
+    <string name="product_name">Produs:</string>
+    <string name="action_settings">Setări</string>
+    <string name="btn_cam">+</string>
+    <string name="btn_buy">Cumpara</string>
+    <string name="hello_blank_fragment">Atentie fragment necompletat </string>
+    <string name="action_refresh">Improspateaza</string>
+    <string name="action_camera">Adăugați Produs </string>
+    <string name="action_send_message">>></string>
+    <string name="action_delete_product">Sterge</string>
+    <string name="action_add_subscription">Cauta</string>
+    <string name="action_add_product">Adauga un nou produs </string>
+    <string name="title_activity_seller_chat">SellerChatActivity</string>
+    <string name="service_name">s1</string>ServiciuMeu1
+    <string name="service_name_worker">ServiciuCurent</string>
+    <string name="service_dream_name">ServiciuVirtual</string>
+    <string name="title_activity_settings">Setări </string>
+    <string name="pref_baseurl_label">Url-Baza</string>
+    <string name="pref_baseurl_key">Url-Kee</string>
+    <string name="pref_baseurl_default"></string>
+    <string name="pref_baseurl_default3">http://10.0.0.3:9090</string>
+    <string name="pref_baseurl_default4">http://ymarq.cloudapp.net</string>
+    <string name="pref_server_label">ServerUrl</string>
+    <string name="pref_server_key">ServerUrl</string>
+    <string name="pref_server_azure">http://ymarq.azurewebsites.net</string>
+    <string name="text1">text</string>
+    <string name="action_map">Harta</string>
+    <string name="action_news">Noutati</string>
+    <string name="action_share">Distribuie</string>
+    <!--<string name="title_activity_buyer">ActivitateCumparator</string>-->
+    <string name="title_activity_buyer_subscription_products">ProduseSubscriseCumparator</string>
+    <!--<string name="title_activity_buyer_chat">ActivitateInfoCumparator</string>-->
+    <string name="lbl_ok">Ok</string>
+    <string name="lbl_cancel">Cancel</string>
+    <string name="lbl_title">Cancel</string>
+    <string name="lbl_comment">Comment</string>
+    <string name="title_activity_ymarq">YmarqActivity</string>
+    <string name="title_activity_chat_rooms">ActivitateainCamereDiscutii</string>
+    <string name="title_activity_image_viewer">VizualizatorImagine</string>
+    <string name="big_text_for_notification"> Atentie: Aplicatia are dificultăți la interogarea datelor</string>
+    <string name="title_activity_simple_list">ListaActivitati</string>
+    <string name="title_activity_simple_picture">FotoActivitati</string>
+    <string name="title_activity_simple_text">TextActivitati</string>
+    <string name="title_activity_main_tabbed">Ymarq</string>
+    <string name="title_section_buy">Cumpara</string>
+    <string name="title_section_sell">Vinde</string>
+    <string name="title_section_notifications">Noutati</string>
+    <string name="title_section_friends">Prieteni</string>
+    <string name="title_section_action">Buton</string>
+    <string name="main_empty_list">Nu există nici o conversație recentă, scrie un nou mesaj pentru a începe una.</string>
+    <string name="pref_refresh_interval_label">IntervalReînnoire (minute)</string>
+    <string name="pref_refresh_interval_key">Kee-IntervalReînnoire</string>
+    <string name="pref_refresh_interval_default">2</string>
+    <string name="pref_notification_send_label">Anunță alții</string>
+    <string name="pref_notification_get_label">Ia notificări de la:</string>
+    <string name="pref_notification_get_key">Modernizare</string>
+    <string name="pref_notification_send_key">Modernizare-Trimite</string>
+    <string name="pref_update_mode_default">Modernizare-Total</string>
+    <string name="title_activity_contacts_activity_new">Contacte</string>
+    <string name="title_activity_contacts_subscriptions_new">Subscriptii</string>
+    <string name="title_activity_news_activity_new">Noutati</string>
+    <string name="action_contacts">Contacte</string>
+    <string name="action_subscriptions">Subscriptii</string>
+    <string name="lbl_select_all">Selecteaza tot</string>
+    <string name="lbl_select_none">Nimic</string>
+    <string name="lbl_name">Nume:</string>
+    <string name="lbl_telephone">Telefon:</string>
+    <string name="descr_image">DescriereImagine</string>
+    <string name="title_activity_message_tree">Discutii</string>
+    <string name="activity_message_tree_center_label"></string>
+    <string name="action_send_message_private">-></string>
+    <string name="title_activity_send_sms">SmsTrimise</string>
+
+    <string name="label_notify_friends">"Anunta prieteni"</string>
+    <string name="label_give_away">"Gratis"</string>
+    <string name="label_ok">"Ok"</string>
+    <string name="label_cancel">"Anuleaza"</string>
+    <string name="label_add_new_product_description">"Descrierea produsului"</string>
+    <string name="label_login_different_email">"Email diferit de ultimul login.Mai incercati odata"</string>
+    <string name="label_login_different_name">"Nume diferit de ultimul login.Mai incercati odata"</string>
+    <string name="label_login_different_phone">"Telefon diferit de ultimul login.Mai incercati odata"</string>
+    <string name="label_login_failed">"Intrarea in system a esuat.Mai incercati odata"</string>
+    <string name="label_login_previous_data_found">"Diferete data au fost gasite pentru acest telefon.Mai incercati odata"</string>
+
+    <string name="label_invitation">"Hi, vino la  YMarq sa vezi ce vand / cumpar / dau"</string>
+
+    <string name="sign_in_terms">By creating an account, I accept YMarq terms and privacy policy</string>
+
+
+
+
+
+    <string name="notification_title_potential_buyers">Cumparatorul la </string>
+    <string name="notification_title_seller_answer">Vanzatorul on </string>
+
+    <string name="notification_title_new_product">Nou produs</string>
+    <string name="notification_title_multiple_notifications">Multiple notificatii: !</string>
+    <string name="notification_total_notifications">Total: </string>
+    <string name="notification_title_have_answered">ti-au saspuns</string>
+
+
+    <string name="notification_title_product">Produs:</string>
+    <string name="label_remember_choice">Arata la vinzari</string>
+
+    <string name="pref_show_contacts_on_add_product_label">Arata prietenii</string>
+    <string name="pref_pref_show_contacts_on_add_product_key">show_contacts</string>
+    <string name="pref_show_contacts_on_add_product_default">false</string>
+    <string name="title_activity_gcm_demo">GcmDemoActivity</string>
+    <string name="pref_baseurl_default5">http://ymarq.cloudapp.net</string>
+    <string name="error_invalid_gcm">Network error </string>
+    <!-- Account type (for sync-adapter authenticator) -->
+    <!-- SyncAdapter related -->
+    <string name="sync_account_type">com.ymarq.eu.sync.Ymarq</string>
+    <string name="content_authority">com.ymarq.eu.ymarq.app</string>
+
+    <string name="label_add_new_subscription_description">"Adaugsa subscriptie"</string>
+    <string name="label_subscription_description">"Nume produs"</string>
+
+    <string name="label_add_new_message">"Send new message :"</string>
+    <string name="label_message">"Description"</string>
+    <string name="pref_update_mode_key">update_mode</string>
+    <string name="title_activit_subscriptions_new">Cautari anterioare </string>
+</resources>

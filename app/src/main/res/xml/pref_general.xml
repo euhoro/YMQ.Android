@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <EditTextPreference
+        android:title="@string/pref_baseurl_label"
+        android:key="@string/pref_baseurl_key"
+        android:defaultValue="@string/pref_baseurl_default"
+        android:inputType ="text"
+        android:singleLine="true"/>
+    <ListPreference
+        android:title="@string/pref_server_label"
+        android:key="@string/pref_server_key"
+        android:defaultValue="@string/pref_server_azure"
+        android:entryValues="@array/pref_units_values"
+        android:entries="@array/pref_units_options"/>
+    <EditTextPreference
+        android:title="@string/pref_refresh_interval_label"
+        android:key="@string/pref_refresh_interval_key"
+        android:defaultValue="@string/pref_refresh_interval_default"
+        android:summary="..."
+        android:numeric="integer"
+        android:maxLength="2"/>
+    <SwitchPreference
+        android:title="@string/pref_show_contacts_on_add_product_label"
+        android:key="@string/pref_pref_show_contacts_on_add_product_key"
+        android:defaultValue="true"
+        android:summary="..." />
+    <ListPreference
+        android:title="@string/pref_notification_send_label"
+        android:key="@string/pref_update_mode_key"
+        android:defaultValue="@string/pref_update_mode_default"
+        android:entryValues="@array/pref_update_mode_values"
+        android:entries="@array/pref_update_mode_options"/>
+    <ListPreference
+        android:title="@string/pref_notification_get_label"
+        android:key="@string/pref_update_mode_key"
+        android:defaultValue="@string/pref_update_mode_default"
+        android:entryValues="@array/pref_update_mode_values"
+        android:entries="@array/pref_update_mode_options"/>
+</PreferenceScreen>

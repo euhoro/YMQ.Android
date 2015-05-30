@@ -1,0 +1,5 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" tools:context="com.ymarq.eu.ymarq.BuyerActivity">
+    <item android:id="@+id/action_subscriptions" android:title="@string/action_subscriptions"
+        android:orderInCategory="100" android:showAsAction="never" />
+</menu>

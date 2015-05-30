@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.ymarq.eu.activities.ChatActivity.DetailChatFragment"
+    android:background="@color/barMeduimColor">
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:weightSum="1">
+        <ImageView android:id="@+id/imageView1" android:layout_height="wrap_content" android:src="@drawable/ic_launcher" android:layout_width="wrap_content"></ImageView>
+    <TextView android:text="@string/product_name"
+        android:layout_width="wrap_content"
+        android:id="@+id/detail_text"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:layout_weight="0.98" />
+    <Button
+        android:layout_width="50dp" android:layout_height="50dp"
+        android:text="@string/action_delete_product"
+        android:id="@+id/BtnDelete"
+        android:background="@drawable/round_button"/>
+    </LinearLayout>
+
+     <ListView
+            android:layout_width="match_parent"
+            android:layout_height="440dp"
+            android:id="@+id/listview_message_list"
+         android:layout_below="@+id/linearLayout5" />
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp"
+        android:baselineAligned="true"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+        <EditText android:layout_weight="1" android:id="@+id/txtSendInput"
+            android:layout_height="45dp" android:layout_width="0dip">
+        </EditText>
+        <Button android:text="@string/action_send_message"
+            android:layout_width="50dp" android:layout_height="50dp"
+            android:id="@+id/BtnSend"
+            android:background="@drawable/round_button"/>
+    </LinearLayout>
+</RelativeLayout>

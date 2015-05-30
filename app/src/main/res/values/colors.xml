@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="textColor">#FFF</color>
+    <color name="textFieldColor">#000</color>
+    <color name="textShadow">#FFF</color>
+    <color name="listViewBg">#DADFEE</color>
+
+    <color name="sendLightColor">#8897BF</color>
+    <color name="sendMeduimColor">#5D6CA5</color>
+    <color name="sendDarkColor">#515F9F</color>
+
+    <color name="barDarkColor">#CECECE</color>
+    <color name="barMeduimColor">#DFDEE0</color>
+    <color name="barLightColor">#F2F2F2</color>
+
+    <color name="barLightColorChat">#F2F2F2</color>
+
+    <color name="roundButtonColor">#4377CC</color>
+    <color name="roundButtonColorRedish">#ffdd4b38</color>
+    <color name="green">#ff2aff23</color>
+    <color name="roundButtonColorGreenish">#ff2aff23</color>
+    <color name="green_light">#f7fdfff0</color>
+    <color name="orange_light">#38ffc12b</color>
+
+    <color name="conversation_text_color">#ff666666</color>
+    <color name="conversation_detail_text_color">#ffcccccc</color>
+    <color name="video_text_color">#ff999999</color>
+    <color name="line_separator">#ffaaaaaa</color>
+    <color name="hint_color">#ffdddddd</color>
+    <color name="conversation_background">#ffefefef</color>
+
+</resources>
