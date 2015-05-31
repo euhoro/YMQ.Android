@@ -50,9 +50,9 @@ public class FragmentContactsNew extends android.support.v4.app.Fragment impleme
 
     private static final String[] USER_COLUMNS = {
             // In this case the id needs to be fully qualified with a table name, since
-            // the content provider joins the location & weather tables in the background
+            // the content provider joins the location & product tables in the background
             // (both have an _id column)
-            // On the one hand, that's annoying.  On the other, you can search the weather table
+            // On the one hand, that's annoying.  On the other, you can search the product table
             // using the location set by the User, which is only in the Location table.
             // So the convenience is worth it.
             ProductsContract.UserEntry.TABLE_NAME + "." + ProductsContract.UserEntry._ID,

@@ -38,7 +38,7 @@ public class ProductsProvider extends ContentProvider {
         sProductsByUserQueryBuilder = new SQLiteQueryBuilder();
 
         //This is an inner join which looks like
-        //weather INNER JOIN location ON weather.location_id = location._id
+        //product INNER JOIN location ON product.location_id = location._id
         sProductsByUserQueryBuilder.setTables(
                 ProductsContract.ProductEntry.TABLE_NAME + " INNER JOIN " +
                         ProductsContract.UserEntry.TABLE_NAME +
@@ -66,7 +66,7 @@ public class ProductsProvider extends ContentProvider {
         sMessagesByProductQueryBuilder2 = new SQLiteQueryBuilder();
 
         //This is an inner join which looks like
-        //weather INNER JOIN location ON weather.location_id = location._id
+        //product INNER JOIN location ON product.location_id = location._id
         sMessagesByProductQueryBuilder2.setTables(
                 ProductsContract.MessageEntry.TABLE_NAME + " INNER JOIN " +
                         ProductsContract.ProductEntry.TABLE_NAME +
@@ -192,7 +192,7 @@ public class ProductsProvider extends ContentProvider {
 
     /*
         Students: Here is where you need to create the UriMatcher. This UriMatcher will
-        match each URI to the WEATHER, WEATHER_WITH_LOCATION, WEATHER_WITH_LOCATION_AND_DATE,
+        match each URI to the product, product_WITH_LOCATION,product_WITH_LOCATION_AND_DATE,
         and LOCATION integer constants defined above.  You can product_item_small2 this by uncommenting the
         testUriMatcher product_item_small2 within TestUriMatcher.
      */
@@ -282,7 +282,7 @@ public class ProductsProvider extends ContentProvider {
         // and query the database accordingly.
         Cursor retCursor;
         switch (sUriMatcher.match(uri)) {
-            // "weather/*/*"
+            // "product/*/*"
             case PRODUCTS_WITH_USER_ID2_AND_PRODUCT_ID2:
             {
                 retCursor = getProductsByUserId2AndProductId(uri, projection, sortOrder);

@@ -37,7 +37,7 @@ public class TestFetchProductsTask extends AndroidTestCase{
             //maybe access through device so you can download data first
             DataApiResult<List<DataProduct>> products = phoneEngine.getProductsDataById2("76971ea670ff89be");//,false);
 
-            // Get the joined Weather and Location data
+            // Get the joined product and Location data
             Cursor productsCursor = mContext.getContentResolver().query(
                     ProductsContract.ProductEntry.buildProductsWithUserId2(TestUtilities.TEST_USER_ID2),
                     null, // leaving "columns" null just returns all the columns.

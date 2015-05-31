@@ -131,13 +131,13 @@ public class TestProvider extends AndroidTestCase {
 
     /*
         This product_item_small2 checks to make sure that the content provider is registered correctly.
-        Students: Uncomment this product_item_small2 to make sure you've correctly registered the WeatherProvider.
+        Students: Uncomment this product_item_small2 to make sure you've correctly registered the ProductsProvider.
      */
     public void testProviderRegistry() {
         PackageManager pm = mContext.getPackageManager();
 
         // We define the component name based on the package name from the context and the
-        // WeatherProvider class.
+        // Productrovider class.
         ComponentName componentName = new ComponentName(mContext.getPackageName(),
                 ProductsProvider.class.getName());
         try {
@@ -146,12 +146,12 @@ public class TestProvider extends AndroidTestCase {
             ProviderInfo providerInfo = pm.getProviderInfo(componentName, 0);
 
             // Make sure that the registered authority matches the authority from the Contract.
-            assertEquals("Error: WeatherProvider registered with authority: " + providerInfo.authority +
+            assertEquals("Error: ProductProvider registered with authority: " + providerInfo.authority +
                     " instead of authority: " + ProductsContract.CONTENT_AUTHORITY,
                     providerInfo.authority, ProductsContract.CONTENT_AUTHORITY);
         } catch (PackageManager.NameNotFoundException e) {
             // I guess the provider isn't registered correctly.
-            assertTrue("Error: WeatherProvider not registered at " + mContext.getPackageName(),
+            assertTrue("Error: ProductProvider not registered at " + mContext.getPackageName(),
                     false);
         }
     }
@@ -212,7 +212,7 @@ public class TestProvider extends AndroidTestCase {
 
     /*
         This product_item_small2 uses the database directly to insert and then uses the ContentProvider to
-        read out the data.  Uncomment this product_item_small2 to see if the basic weather query functionality
+        read out the data.  Uncomment this product_item_small2 to see if the basic Product query functionality
         given in the ContentProvider is working correctly.
      */
     public void testBasicProductsQuery() {
@@ -223,16 +223,16 @@ public class TestProvider extends AndroidTestCase {
         ContentValues testValues = TestUtilities.createUserValues();
         long locationRowId = TestUtilities.insertUserValues(mContext);
 
-        // Fantastic.  Now that we have a location, add some weather!
-        ContentValues weatherValues = TestUtilities.createProductValues(locationRowId);
+        // Fantastic.  Now that we have a location, add some Product!
+        ContentValues productValues = TestUtilities.createProductValues(locationRowId);
 
-        long weatherRowId = db.insert(ProductsContract.ProductEntry.TABLE_NAME, null, weatherValues);
-        assertTrue("Unable to Insert ProductEntry into the Database", weatherRowId != -1);
+        long productRowId = db.insert(ProductsContract.ProductEntry.TABLE_NAME, null, productValues);
+        assertTrue("Unable to Insert ProductEntry into the Database", productRowId != -1);
 
         db.close();
 
         // Test the basic content provider query
-        Cursor weatherCursor = mContext.getContentResolver().query(
+        Cursor productCursor = mContext.getContentResolver().query(
                 ProductsContract.ProductEntry.CONTENT_URI,
                 null,
                 null,
@@ -241,7 +241,7 @@ public class TestProvider extends AndroidTestCase {
         );
 
         // Make sure we get the correct cursor out of the database
-        TestUtilities.validateCursor("testBasicProductsQuery", weatherCursor, weatherValues);
+        TestUtilities.validateCursor("testBasicProductsQuery", productCursor, productValues);
     }
 
 
@@ -253,7 +253,7 @@ public class TestProvider extends AndroidTestCase {
         ContentValues testValues = TestUtilities.createUserValues();
         long userRow = TestUtilities.insertUserValues(mContext);
 
-        // Fantastic.  Now that we have a location, add some weather!
+        // Fantastic.  Now that we have a location, add some Product!
         ContentValues subscriptionValues = TestUtilities.createSubscriptionValues(userRow);
 
         long subscriptoinRowId = db.insert(ProductsContract.SubscriptionEntry.TABLE_NAME, null, subscriptionValues);
@@ -271,7 +271,7 @@ public class TestProvider extends AndroidTestCase {
         );
 
         // Make sure we get the correct cursor out of the database
-        TestUtilities.validateCursor("testBasicWeatherQuery", subscristionCursor, subscriptionValues);
+        TestUtilities.validateCursor("testBasicProductQuery", subscristionCursor, subscriptionValues);
     }
 
 
@@ -287,7 +287,7 @@ public class TestProvider extends AndroidTestCase {
         ContentValues productValues = TestUtilities.createProductValues(userRow);
         long productROw = TestUtilities.insertProductsValues(mContext);
 
-        // Fantastic.  Now that we have a location, add some weather!
+        // Fantastic.  Now that we have a location, add some produict!
         ContentValues messageValues = TestUtilities.createMesageValues(productROw, userRow);
 
         long messageRowId = db.insert(ProductsContract.MessageEntry.TABLE_NAME, null, messageValues);
@@ -305,7 +305,7 @@ public class TestProvider extends AndroidTestCase {
         );
 
         // Make sure we get the correct cursor out of the database
-        TestUtilities.validateCursor("testBasicWeatherQuery", subscristionCursor, messageValues);
+        TestUtilities.validateCursor("testBasicProductQuery", subscristionCursor, messageValues);
     }
 
     public void testCopyDataBase()
@@ -559,11 +559,11 @@ public class TestProvider extends AndroidTestCase {
      TestUtilities.validateCursor("testInsertReadProvider. Error validating productsEntry insert.",
              productsCursor, productsValues);
 
-     // Add the location values in with the weather data so that we can make
+     // Add the location values in with the Product data so that we can make
      // sure that the join worked and we actually get all the values back
      productsValues.putAll(testValues);
 
-     // Get the joined Weather and Location data
+     // Get the joined Product and Location data
      productsCursor = mContext.getContentResolver().query(
              ProductsContract.ProductEntry.buildProductsWithUserId2(TestUtilities.TEST_USER_ID2),
              null, // leaving "columns" null just returns all the columns.
@@ -586,7 +586,7 @@ public class TestProvider extends AndroidTestCase {
      TestUtilities.validateCursor("testInsertReadProvider.  Error validating joined products and Location Data with start date.",
              productsCursor, productsValues);
 
-     // Get the joined Weather data for a specific date
+     // Get the joined Product data for a specific date
      productsCursor = mContext.getContentResolver().query(
              ProductsContract.ProductEntry.buildProductsUserWithProductId2(TestUtilities.TEST_USER_ID2, TestUtilities.TEST_PRODUCT_ID2),
              null,
@@ -594,7 +594,7 @@ public class TestProvider extends AndroidTestCase {
              null,
              null
      );
-     TestUtilities.validateCursor("testInsertReadProvider.  Error validating joined Weather and Location data for a specific date.",
+     TestUtilities.validateCursor("testInsertReadProvider.  Error validating joined Product and Location data for a specific date.",
              productsCursor, productsValues);
  }
 
@@ -610,9 +610,9 @@ public class TestProvider extends AndroidTestCase {
         TestUtilities.TestContentObserver locationObserver = TestUtilities.getTestContentObserver();
         mContext.getContentResolver().registerContentObserver(ProductsContract.UserEntry.CONTENT_URI, true, locationObserver);
 
-        // Register a content observer for our weather delete.
-        TestUtilities.TestContentObserver weatherObserver = TestUtilities.getTestContentObserver();
-        mContext.getContentResolver().registerContentObserver(ProductsContract.ProductEntry.CONTENT_URI, true, weatherObserver);
+        // Register a content observer for our product delete.
+        TestUtilities.TestContentObserver productObserver = TestUtilities.getTestContentObserver();
+        mContext.getContentResolver().registerContentObserver(ProductsContract.ProductEntry.CONTENT_URI, true, productObserver);
 
         deleteAllRecordsFromProvider();
 
@@ -620,10 +620,10 @@ public class TestProvider extends AndroidTestCase {
         // getContext().getContentResolver().notifyChange(uri, null); in the ContentProvider
         // delete.  (only if the insertReadProvider is succeeding)
         locationObserver.waitForNotificationOrFail();
-        weatherObserver.waitForNotificationOrFail();
+        productObserver.waitForNotificationOrFail();
 
         mContext.getContentResolver().unregisterContentObserver(locationObserver);
-        mContext.getContentResolver().unregisterContentObserver(weatherObserver);
+        mContext.getContentResolver().unregisterContentObserver(productObserver);
     }
 
 
@@ -654,6 +654,8 @@ public class TestProvider extends AndroidTestCase {
             values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_NOTIFY_OTHERS ,0);
             values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_GIVEAWAY ,0);
 
+            values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_SERVER_STATUS ,0);
+
             returnContentValues[i] = values;
         }
         return returnContentValues;
@@ -683,22 +685,22 @@ public class TestProvider extends AndroidTestCase {
         TestUtilities.validateCursor("testBulkInsert. Error validating LocationEntry.",
                 cursor, testValues);
 
-        // Now we can bulkInsert some weather.  In fact, we only implement BulkInsert for weather
+        // Now we can bulkInsert some Product.  In fact, we only implement BulkInsert for product
         // entries.  With ContentProviders, you really only have to implement the features you
         // use, after all.
         ContentValues[] bulkInsertContentValues = createBulkInsertProductsValues(locationRowId);
 
         // Register a content observer for our bulk insert.
-        TestUtilities.TestContentObserver weatherObserver = TestUtilities.getTestContentObserver();
-        mContext.getContentResolver().registerContentObserver(ProductsContract.ProductEntry.CONTENT_URI, true, weatherObserver);
+        TestUtilities.TestContentObserver productObserver = TestUtilities.getTestContentObserver();
+        mContext.getContentResolver().registerContentObserver(ProductsContract.ProductEntry.CONTENT_URI, true, productObserver);
 
         int insertCount = mContext.getContentResolver().bulkInsert(ProductsContract.ProductEntry.CONTENT_URI, bulkInsertContentValues);
 
         // Students:  If this fails, it means that you most-likely are not calling the
         // getContext().getContentResolver().notifyChange(uri, null); in your BulkInsert
         // ContentProvider method.
-        weatherObserver.waitForNotificationOrFail();
-        mContext.getContentResolver().unregisterContentObserver(weatherObserver);
+        productObserver.waitForNotificationOrFail();
+        mContext.getContentResolver().unregisterContentObserver(productObserver);
 
         assertEquals(insertCount, BULK_INSERT_RECORDS_TO_INSERT);
 
@@ -718,7 +720,7 @@ public class TestProvider extends AndroidTestCase {
         // and let's make sure they match the ones we created
         cursor.moveToFirst();
         for ( int i = 0; i < BULK_INSERT_RECORDS_TO_INSERT; i++, cursor.moveToNext() ) {
-            TestUtilities.validateCurrentRecord("testBulkInsert.  Error validating WeatherEntry " + i,
+            TestUtilities.validateCurrentRecord("testBulkInsert.  Error validating ProductEntry " + i,
                     cursor, bulkInsertContentValues[i]);
         }
         cursor.close();
@@ -748,22 +750,22 @@ public class TestProvider extends AndroidTestCase {
         TestUtilities.validateCursor("testBulkInsert. Error validating LocationEntry.",
                 cursor, testValues);
 
-        // Now we can bulkInsert some weather. In fact, we only implement BulkInsert for weather
+        // Now we can bulkInsert some Product. In fact, we only implement BulkInsert for product
         // entries. With ContentProviders, you really only have to implement the features you
         // use, after all.
         ContentValues[] bulkInsertContentValues = createBulkInsertProductsValues(locationRowId);
 
         // Register a content observer for our bulk insert.
-        TestUtilities.TestContentObserver weatherObserver = TestUtilities.getTestContentObserver();
-        mContext.getContentResolver().registerContentObserver(ProductsContract.ProductEntry.CONTENT_URI, true, weatherObserver);
+        TestUtilities.TestContentObserver productObserver = TestUtilities.getTestContentObserver();
+        mContext.getContentResolver().registerContentObserver(ProductsContract.ProductEntry.CONTENT_URI, true, productObserver);
 
         int insertCount = mContext.getContentResolver().bulkInsert(ProductsContract.ProductEntry.CONTENT_URI, bulkInsertContentValues);
 
         // Students: If this fails, it means that you most-likely are not calling the
         // getContext().getContentResolver().notifyChange(uri, null); in your BulkInsert
         // ContentProvider method.
-        weatherObserver.waitForNotificationOrFail();
-        mContext.getContentResolver().unregisterContentObserver(weatherObserver);
+        productObserver.waitForNotificationOrFail();
+        mContext.getContentResolver().unregisterContentObserver(productObserver);
 
         assertEquals(insertCount, BULK_INSERT_RECORDS_TO_INSERT);
 
@@ -782,7 +784,7 @@ public class TestProvider extends AndroidTestCase {
         // and let's make sure they match the ones we created
         cursor.moveToFirst();
         for (int i = 0; i < BULK_INSERT_RECORDS_TO_INSERT; i++, cursor.moveToNext()) {
-            TestUtilities.validateCurrentRecord("testBulkInsert. Error validating WeatherEntry " + i,
+            TestUtilities.validateCurrentRecord("testBulkInsert. Error validating ProductEntry " + i,
                     cursor, bulkInsertContentValues[i]);
         }
         cursor.close();

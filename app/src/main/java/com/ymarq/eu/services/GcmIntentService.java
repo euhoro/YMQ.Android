@@ -67,6 +67,7 @@ public class GcmIntentService extends IntentService {
                 if (message != null && message.length()>0) {
                     Intent service = new Intent(this, NotificationsService.class);//MyWorkerService3.class);
                     this.startService(service);
+                    HandleDeleteProduct(intent);
                 }
                 //else ( somethimes google just sends ping on the first use ( login )
 
@@ -87,6 +88,22 @@ public class GcmIntentService extends IntentService {
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
         GcmBroadcastReceiver.completeWakefulIntent(intent);
+    }
+
+
+    private boolean HandleDeleteProduct(Intent intent) {
+        String message = intent.getStringExtra("message");
+        DataApiNotification dataApiNotification = DataApiNotification.getFromJson(message);
+
+        if (dataApiNotification == null)
+            return true;
+
+        //delete product
+        if (dataApiNotification.MessageType == 3) {
+            //todo : update the flag on the product / do not delete it for good since
+            PhoneEngine.getInstance().deleteProduct(dataApiNotification.Data);
+        }
+        return true;
     }
 
     private boolean HandleNotification(Intent intent) {

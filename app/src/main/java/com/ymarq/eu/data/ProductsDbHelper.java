@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class ProductsDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 27;
+    private static final int DATABASE_VERSION = 28;
 
     public static final String DATABASE_NAME = "ymarq.db";
 
@@ -69,6 +69,7 @@ public class ProductsDbHelper extends SQLiteOpenHelper {
                 ProductsContract.ProductEntry.COLUMN_PRODUCT_NOTIFY_FRIENDS + " INTEGER NOT NULL," +
                 ProductsContract.ProductEntry.COLUMN_PRODUCT_NOTIFY_OTHERS + " INTEGER NOT NULL," +
                 ProductsContract.ProductEntry.COLUMN_PRODUCT_GIVEAWAY + " INTEGER NOT NULL," +
+                ProductsContract.ProductEntry.COLUMN_PRODUCT_SERVER_STATUS + " INTEGER NOT NULL," +
 
                 // Set up the location column as a foreign key to location table.
                 " FOREIGN KEY (" + ProductsContract.ProductEntry.COLUMN_LOC_KEY + ") REFERENCES " +

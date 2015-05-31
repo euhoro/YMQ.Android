@@ -50,7 +50,7 @@ public class TestUtilities extends AndroidTestCase {
     }
 
     /*
-        Students: Use this to create some default weather values for your database tests.
+        Students: Use this to create some default product values for your database tests.
      */
     static ContentValues createProductValues(long userRowId) {
         String productDescription = "mazda 3";
@@ -70,6 +70,8 @@ public class TestUtilities extends AndroidTestCase {
         values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_NOTIFY_FRIENDS ,0);
         values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_NOTIFY_OTHERS ,0);
         values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_GIVEAWAY ,0);
+
+        values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_SERVER_STATUS ,0);
 
         return values;
     }
@@ -131,7 +133,7 @@ public class TestUtilities extends AndroidTestCase {
 
     /*
         Students: You can uncomment this function once you have finished creating the
-        LocationEntry part of the WeatherContract as well as the WeatherDbHelper.
+        LocationEntry part of the ProductContract as well as the productDbHelper.
      */
     static long insertUserValues(Context context) {
         // insert our product_item_small2 records into the database

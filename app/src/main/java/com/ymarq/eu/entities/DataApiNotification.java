@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class DataApiNotification implements Serializable {
 
     public int MessageType;
+    //        Product         = 0,    Message         = 1,    Subscription    = 2 , ProductDelete = 3
 
     public String getData() {
         return Data;

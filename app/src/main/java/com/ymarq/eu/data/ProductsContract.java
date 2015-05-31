@@ -197,6 +197,7 @@ public class ProductsContract {
         public static final String COLUMN_PRODUCT_GIVEAWAY = "product_giveaway";
         public static final String COLUMN_PRODUCT_NOTIFY_FRIENDS = "product_notify_friends";
         public static final String COLUMN_PRODUCT_NOTIFY_OTHERS = "product_notify_others";
+        public static final String COLUMN_PRODUCT_SERVER_STATUS = "product_server_status";
 
 
         public static Uri buildProductUri(long id) {

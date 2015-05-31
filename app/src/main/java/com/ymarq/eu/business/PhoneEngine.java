@@ -962,6 +962,7 @@ public class PhoneEngine {
             values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_NOTIFY_FRIENDS ,dp.NotifyFriends? 1:0);
             values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_NOTIFY_OTHERS,dp.NotifyOthers? 1:0);
             values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_GIVEAWAY ,dp.GiveAway ? 1:0);
+            values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_SERVER_STATUS ,0);
 
 
             // Finally, insert location data into the database.
@@ -996,7 +997,7 @@ public class PhoneEngine {
             //if User is not in the system add it
             long userRowId = addUser(userId, "", false, false,"", "0","0","",false,"");
 
-            // Insert the new weather information into the database
+            // Insert the new product information into the database
             Vector<ContentValues> cVVector = new Vector<ContentValues>(products.size());
 
             for(DataSubscription dp : products) {
@@ -1019,7 +1020,7 @@ public class PhoneEngine {
                 inserted = applicationContext.getContentResolver().bulkInsert(ProductsContract.SubscriptionEntry.CONTENT_URI, cvArray);
             }
 
-            Log.d(LOG_TAG, "FetchWeatherTask Complete. " + inserted + " Inserted");
+            Log.d(LOG_TAG, "FetchProductsTask Complete. " + inserted + " Inserted");
 
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
@@ -1030,21 +1031,7 @@ public class PhoneEngine {
     public void insertProductsDataInProvider(List<DataProduct> products){
 
             try{
-                //long userRowId =-1;
-                //if (userId != null) {
-                //    //single user
-                //    //if User is not in the system add it
-                //    userRowId = addUser(userId, "", false, false, "", "0", "0", "", false, "");
-                //}
-                //else
-                //{
-                    //this should happen after the updatecontacts
-                    //for(DataProduct dp : products) {
-                        //userRowId = addUser(dp.UserId, "", false, false, "", "0", "0", "", false, "");
-                    //}
-                //}
-
-                // Insert the new weather information into the database
+                // Insert the new product information into the database
                 Vector<ContentValues> cVVector = new Vector<ContentValues>(products.size());
 
                 for(DataProduct dp : products) {
@@ -1068,6 +1055,7 @@ public class PhoneEngine {
                     values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_NOTIFY_FRIENDS ,dp.NotifyFriends? 1:0);
                     values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_NOTIFY_OTHERS ,0);
                     values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_GIVEAWAY ,1);//dp.GiveAway? 1:0);
+                    values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_SERVER_STATUS ,0);//dp.GiveAway? 1:0);
 
                     cVVector.add(values);
                 }
@@ -1080,7 +1068,7 @@ public class PhoneEngine {
                     inserted = applicationContext.getContentResolver().bulkInsert(ProductsContract.ProductEntry.CONTENT_URI, cvArray);
                 }
 
-                Log.d(LOG_TAG, "FetchWeatherTask Complete. " + inserted + " Inserted");
+                Log.d(LOG_TAG, "FetchProductsTask Complete. " + inserted + " Inserted");
 
             } catch (Exception e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
