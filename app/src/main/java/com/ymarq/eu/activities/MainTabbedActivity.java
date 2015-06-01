@@ -59,16 +59,12 @@ public class MainTabbedActivity extends FragmentActivity implements YmarqCallbac
         PhoneEngine.getInstance().setApplicationContext(getApplicationContext());
         String userSerialized = PhoneEngine.getInstance().getUserDataById2(mUniquePhoneId, true);
 
-        //if there is nothing se
+        //if the user was not set by other intent ( contacts) - set it here
         if(false == userSerialized.length()>0)
-              //&& (getIntent()!=null && false == getIntent().hasExtra(Intent.EXTRA_TEXT)))
         {
             Intent ourIntent = new Intent(this, LoginActivity.class);
             startActivity(ourIntent);
             finish();
-        }
-        else {
-            this.getIntent().putExtra(Intent.EXTRA_TEXT, userSerialized);
         }
 
         setContentView(R.layout.activity_main_tabbed);
