@@ -228,12 +228,7 @@ public class FragmentMessageTree extends Fragment implements IOnMessagesReceived
         mTextDescription.setText(mProduct2.Description);
 
         String contactName = getContact();
-
-        //copyDataBase();
-
         mTextUser.setText("@" + contactName);
-        //TextView detailTextView = (TextView)getView().findViewById(R.id.detail_text);
-        //detailTextView.setText(mForecast);
     }
 
     @Override

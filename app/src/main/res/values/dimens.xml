@@ -15,4 +15,7 @@
     <dimen name="conversation_text_size">14.0sp</dimen>
     <dimen name="conversation_detail_text_size">12.0sp</dimen>
 
+    <dimen name="tablet_size_spacing">4dip</dimen>
+    <dimen name="tablet_width">276dp</dimen>
+
 </resources>

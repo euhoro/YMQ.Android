@@ -143,8 +143,6 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
     public static int count=0;
     String dir;
     static String LOGGER_TAG = "LOGGERWEB";
-    //View rootView;
-    //ImageAdapterFrag productsArrayAdapter;
     ProductsAdapter productsArrayAdapter;
     List<DataProduct> mProductList;
     DataUser mCurrentDataUser;
@@ -157,7 +155,6 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
     static final int REQUEST_TAKE_PHOTO = 11511;
     // Image view for showing our image.
     private MarkableImageView mImageView;
-    //private ImageView mThumbnailImageView2;
     public static final String ARG_SECTION_NUMBER = "ARG_SECTION_NUMBER";
 
     private CloudEngine mCloudEngine2 = CloudEngine.getInstance();
@@ -188,22 +185,11 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
 
     @Override
     public void fireOnProductsReceived(List<DataProduct> products) {
-        //mProductList = products;
-        //productsArrayAdapter.clear();
-        //productsArrayAdapter.addAll(products);
-        //productsArrayAdapter.notifyDataSetChanged();
-        //mEdit.clearFocus();
     }
 
     @Override
     public void fireOnOneProductReceived(DataProduct product)
     {
-        //productsArrayAdapter.add(Product);
-        //productsArrayAdapter.notifyDataSetChanged();
-
-        //mPhoneEngine.addProductToProviderOwner(mCurrentDataUser,product);
-        //DeviceService.startActionGetProducts(getActivity(),mCurrentDataUser.getAsJSON(),product.getAsJSON());
-
         DataMessage dm = new DataMessage(product.Description,mCurrentDataUser.Id,product.Id);
         mCloudEngine2.SendMessage(dm, true);
     }
@@ -225,16 +211,6 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
 
         setHasOptionsMenu(true);
 
-        //camera
-        //here,we are making a folder named picFolder to store pics taken by the camera using this application
-        dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/picFolder/";
-        File newdir = new File(dir);
-        newdir.mkdirs();
-
-        //mListView = (ListView) getView().findViewById(R.id.listview_products_list);
-        //registerForContextMenu(mListView);
-        //this should improve the couch camera pictures
-        //setRetainInstance(true);
     }
 
 
@@ -243,10 +219,8 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
         if (v.getId() == R.id.gridview_products_list) {
             GridView lv = (GridView) v;
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
-            //Object obj =  lv.getItemAtPosition(acmi.position);//this can cause crash uncaught exception - casting DataProduct
 
             menu.add(Menu.NONE, MENU_DELETE, Menu.NONE, "Delete");
-            //menu.add(Menu.NONE, MENU_UPDATE, Menu.NONE, "Update");
         }
     }
 
@@ -261,9 +235,7 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
                     DataProduct obj = new DataProduct();
                     obj.Id = cursor.getString(COLUMN_PRODUCT_ID2);
                     obj.UserId = mCurrentDataUser.Id;
-                    //obj.Description = cursor.getString(COLUMN_DESCRIPTION);
-                    //mCloudEngine2.DeleteProduct(obj,true);
-                    //mPhoneEngine.deleteProduct(obj.Id);
+
                     DeviceService.startActionDeleteProduct(getActivity(),obj.getAsJSON(),true);
                 }
                 return true;
@@ -332,7 +304,7 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        // Ensure that there's a camera activity to handle the intent
+        // Ensure that there's a camera activityforre to handle the intent
         MainTabbedActivity activity = (MainTabbedActivity)getActivity();
 
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
@@ -353,7 +325,12 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
                 activity.setCurrentPhotoPath(fileUri.getPath());
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         activity.getCapturedImageURI());
-                getParentFragment().startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                try {
+                    getParentFragment().startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                }
+                catch (Exception ex) {
+                    Toast.makeText(activity, "There was a problem taking the picture.Check that the camera is not in use ", Toast.LENGTH_SHORT);
+                }
             }
         }
     }
@@ -375,14 +352,9 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
             MainTabbedActivity activity = (MainTabbedActivity)getActivity();
             if( activity.getCurrentPhotoPath() == null)
             {
-                //this should not be happen anymore and shoudl be removed.
-                //Toast.makeText(activity, "Something went wrong...(CouchPicture)", Toast.LENGTH_LONG).show();
                 Toast.makeText(activity, "Please try againt with different orientation ", Toast.LENGTH_LONG).show();
                 return;
             }
-
-            //Toast.makeText(getActivity().getBaseContext(), "Uploading image...",
-            //        Toast.LENGTH_SHORT).show();
 
             addPhotoToGallery();
 
@@ -394,25 +366,14 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
 
             imageBitmap = null;
 
-            //Bitmap rotated = getBitmapFromFullImage2(activity);
-
             String pathRotated = saveToInternalSorage2(rotated, activity.CapturedImageURI);
 
             rotated = null;
 
-            //ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            //rotated.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
-            //byte[] bytes = baos.toByteArray();
-            //String encodedString = Base64.encodeToString(bytes, Base64.DEFAULT);
             String encodedString = "";
 
-            {
-                //MyDialogFragment m = new MyDialogFragment();
-
-                //m.show(getActivity().getSupportFragmentManager(),"tag");
-                ShowDialogSeller(pathRotated, encodedString, mCurrentDataUser.Id);
-                mEdit.setText("");
-            }
+            ShowDialogSeller(pathRotated, encodedString, mCurrentDataUser.Id);
+            mEdit.setText("");
         } else {
             Toast.makeText(getActivity(), "Image Capture Failed", Toast.LENGTH_SHORT)
                     .show();
@@ -431,7 +392,6 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
         matrix.postRotate(90);
 
         Bitmap resized2 = Bitmap.createScaledBitmap(imageBitmap,(int)(imageBitmap.getWidth()*0.2), (int)(imageBitmap.getHeight()*0.2), true);
-        //Bitmap resized = Bitmap.createBitmap(imageBitmap,0,0,(int)(imageBitmap.getWidth()*0.2), (int)(imageBitmap.getHeight()*0.2),matrix, true);
 
         return Bitmap.createBitmap(resized2, 0, 0, resized2.getWidth(),resized2.getHeight(), matrix, false);
     }
@@ -697,9 +657,6 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
                                    mCurrentDataUser.Id, cursor.getString(COLUMN_PRODUCT_ID2)
                            ));
 
-                   //mPhoneEngine.setApplicationContext(getActivity().getApplicationContext());
-                   //mPhoneEngine.updateProductNotification(cursor.getString(COLUMN_PRODUCT_ID2),0); moved to messagetree
-
                    startActivity(intent);
                }
            }
@@ -714,12 +671,6 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
 
         MainTabbedActivity activity = (MainTabbedActivity)getActivity();
 
-        //if (activity.getCurrentPhotoPath()!=null && outState != null)
-        //    outState.putString("MyString", activity.getCurrentPhotoPath());
-//
-        //if(activity.CapturedImageURI.toString()!=null  && outState != null)
-        //    outState.putString("myuri", activity.CapturedImageURI.toString());
-//
         if (mProductList!=null) {
             outState.putString(KEY_PRODUCT_LIST_KEY, DataProduct.getJsonFromList(mProductList));
         }
@@ -730,22 +681,8 @@ public class ProductsSellerFragment extends ContentFragment implements IOnProduc
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState != null) {
-           //String myString = savedInstanceState.getString("MyString");
-
-
-           //MainTabbedActivity activity = (MainTabbedActivity)getActivity();
-           //activity.CurrentPhotoPath = myString;
-
-           //String myUri = savedInstanceState.getString("myuri");
-           //if( myUri != null)
-           //    activity.setCapturedImageURI(Uri.parse(myUri));
-
-           //// Restore last state for checked position.
-           ////mCurrentDataUser = DataUser.getFromJson( savedInstanceState.getString("curChoice", ""));
-
             String  products = savedInstanceState.getString(KEY_PRODUCT_LIST_KEY, "");
             List<DataProduct> productsList = DataProduct.getProductsFromJson(products);
-            //fireOnProductsReceived(productsList);
         }
         if( mCurrentDataUser == null)
         {

@@ -124,7 +124,19 @@ public class FragmentContactsNew extends android.support.v4.app.Fragment impleme
         Intent intent = getActivity().getIntent();
         if (intent!=null && intent.hasExtra(Intent.EXTRA_TEXT)) {
             String userJson = intent.getStringExtra(Intent.EXTRA_TEXT);
-            mUserData = DataUser.getFromJson(userJson);
+            try {
+                mUserData = DataUser.getFromJson(userJson);
+            }
+            catch (Exception ex)
+            {
+                //todo : handle when a product gets here from the share provider ( product )
+                //add this to the contacts activity when done
+                //<intent-filter>
+                //<action android:name="android.intent.action.SEND" />
+                //<category android:name="android.intent.category.DEFAULT" />
+                //<data android:mimeType="text/plain" />
+                //</intent-filter>
+            }
         }
 
         if (intent!=null && intent.hasExtra(Intent.EXTRA_TITLE)) {

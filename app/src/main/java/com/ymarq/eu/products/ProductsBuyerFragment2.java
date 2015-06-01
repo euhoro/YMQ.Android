@@ -259,18 +259,7 @@ public class ProductsBuyerFragment2 extends ContentFragment implements IOnProduc
 
         setHasOptionsMenu(true);
 
-        //camera
-        //here,we are making a folder named picFolder to store pics taken by the camera using this application
-        dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/picFolder/";
-        File newdir = new File(dir);
-        newdir.mkdirs();
-
-        //mListView = (ListView) getView().findViewById(R.id.listview_products_list);
-        //registerForContextMenu(mListView);
-        //this should improve the couch camera pictures
-        //setRetainInstance(true);
     }
-
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {

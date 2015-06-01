@@ -51,43 +51,15 @@ public class NewsActivityNew extends FragmentActivity implements YmarqCallback {
         }
     }
 
-        //if (savedInstanceState == null) {
-        //    //getFragmentManager().beginTransaction()
-        //    //        .add(R.id.container, new FragmentContactsNew())
-        //    //        .commit();
-        //    getSupportFragmentManager().beginTransaction()
-        //            .add(R.id.container, new ProductsBuyerFragment2())
-        //            .commit();
-        //}
-   // }
-
-    //@Override
-    //protected void onResume2() {
-    //    super.onResume();
-    //    String location = ""; //Utility.getPreferredLocation( this );
-    //    // update the location in our second pane using the fragment manager
-    //    if (location != null && !location.equals(mLocation)) {
-    //        ProductsBuyerFragment2 ff = (ProductsBuyerFragment2)getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
-    //        if ( null != ff ) {
-    //            //ff.onLocationChanged();
-    //        }
-    //        FragmentMessageTree df = (FragmentMessageTree)getSupportFragmentManager().findFragmentByTag(DETAILFRAGMENT_TAG);
-    //        if ( null != df ) {
-    //            df.onProductsChanged(location);
-    //        }
-    //        //mLocation = location;
-    //    //}
-    //}
-
     private final String LOG_TAG = NewsActivityNew.class.getSimpleName();
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
     protected void onResume() {
-//notsuere this is necesary on tablet2
+    //notsuere this is necesary on tablet2
         super.onResume();
         String location = ""; //Utility.getPreferredLocation( this );
            // update the location in our second pane using the fragment manager
            if (location != null && !location.equals(mLocation)) {
-               ProductsBuyerFragment2 ff = (ProductsBuyerFragment2)getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
+               ProductsBuyerFragment2 ff = (ProductsBuyerFragment2)getSupportFragmentManager().findFragmentById(R.id.fragment_news);
 
 
                //tablet2

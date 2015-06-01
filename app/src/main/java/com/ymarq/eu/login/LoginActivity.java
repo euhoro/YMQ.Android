@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -58,10 +59,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
-
-/**
- * A login screen that offers login via email/password.
- */
 public class LoginActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>,IOnUserReceived{
 
         @Override
@@ -98,18 +95,6 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
 
         }
 
-    /**
-     * A dummy authentication store containing known User names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    //private static final String[] DUMMY_CREDENTIALS = new String[]{
-    //        "foo@example.com:hello", "bar@example.com:world"
-    //};
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    //private UserLoginTask mAuthTask = null;
-
     GoogleCloudMessaging gcm;
     AtomicInteger msgId = new AtomicInteger();
     Context context ;
@@ -127,6 +112,7 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
     private AutoCompleteTextView mPhoneNumberView;
     private Spinner mSpinnerCountryCode;
     public static final String BROADCAST = "PACKAGE_NAME.android.action.broadcast";
+
     //private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -142,8 +128,6 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
     // The minimum time between updates in milliseconds
     private static final long MIN_TIME_BW_UPDATES = 1; // 1 minute
 
-    //eugen
-    // UI references.
     //private AutoCompleteTextView mNickNameView;
     private String mUniqueEmail;
     private CloudEngine mCloudEngine;
@@ -156,7 +140,6 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
     private String mEmail;
     private String mCountryCode;
     private String mRegistrationId;
-
 
     MyLocation myLocation = new MyLocation();
     Spinner mPhoneCodesView;
@@ -173,7 +156,10 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
+
+        removeBackButton();
 
         mCloudEngine = CloudEngine.getInstance();
 
@@ -203,32 +189,20 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
         {
             mUserData = DataUser.getFromJson(userSerialized);
             if( mUserData.RegistrationId.equals(mRegistrationId)) {
-                startMainActivity();//todo add login always or once
-                //mCloudEngine.Login(mUserData.Id, true);
+                startMainActivity();
                 return;
             }
         }
 
-
-        //this happens on new install
-        //if (mRegistrationId.isEmpty()) {
-
         //in any case we get the registration again
         registerInBackground();
-        //}
 
-        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         mSpinnerCountryCode = (Spinner) findViewById(R.id.phone_codes);
 
-        //TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        //String countryCode = tm.getSimCountryIso();
-
-        // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mNickNameView = (AutoCompleteTextView) findViewById(R.id.nick_name);
         mPhoneNumberView = (AutoCompleteTextView) findViewById(R.id.phone_number);
         mPhoneNumberView.requestFocus();
-        populateAutoComplete();
 
         //eugen
         // Set up the login form.
@@ -239,22 +213,9 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
         mPhoneCodesView.setAdapter(adapter);
         mPhoneCodesView.setSelection(100);
 
-        //mNickNameView = (AutoCompleteTextView) findViewById(R.id.nick_name);
         populateDefaultEmail();
         mEmailView.setText(mUniqueEmail);
         mNickNameView.setText(mNickName);
-
-       //mPasswordView = (EditText) findViewById(R.id.password);
-       //mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-       //    @Override
-       //    public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-       //        if (id == R.id.login || id == EditorInfo.IME_NULL) {
-       //            attemptLogin();
-       //            return true;
-       //        }
-       //        return false;
-       //    }
-       //});
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -266,6 +227,12 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    private void removeBackButton() {
+        ActionBar actionBar = getActionBar();
+        if(actionBar !=null)
+        { actionBar.setDisplayHomeAsUpEnabled(false); }
     }
 
     private String getRegistrationId(Context context,String userSerialized) {
@@ -338,12 +305,8 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
         if (result == null)
         {
             return;
-            //error
         }
-
         HandleLoginLogonResult(result);
-       // StartNotificationServiceFirstTime();
-       // startMainActivity();
     }
 
     private void writeUserToSharedPreferences2(String data) {
@@ -396,9 +359,7 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
     }
 
     private void StartNotificationServiceFirstTime() {
-
         //the service should no longer running at start since it is power by the gcm
-
         Intent intent2 = new Intent(BROADCAST);
         Bundle extras = new Bundle();
         extras.putString("send_data", "product_item_small2");
@@ -408,7 +369,6 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
         //the order is very important here since the users should be already udated
         DeviceService.startActionUpdateContactsStatus(this.getApplicationContext(), mUserData.Id, false);
         DeviceService.startActionGetProductsAsync(this.getApplicationContext(), mUserData.getId(),false);//buyer
-        //DeviceService.startActionGetProductsAsync(this.getApplicationContext(), mUserData.Id,true);//seller
 
         cleanYmarqDirectory();
     }
@@ -428,10 +388,6 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
             }
         }
         return true;
-    }
-
-    private void populateAutoComplete() {
-        //getLoaderManager().initLoader(0, null, this);
     }
 
     private void populateDefaultEmail() {
@@ -454,73 +410,18 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
             }
         }
     }
-
-    //public Location getLocation() {
-    //    Location location=null;
-    //    try {
-    //        mLocationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-//
-    //        double lat;
-    //        double lng;
-    //        // getting GPS status
-    //        boolean isGPSEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//
-    //        // getting network status
-    //        boolean isNetworkEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-//
-    //        if (!isGPSEnabled && !isNetworkEnabled) {
-    //            // no network provider is enabled
-    //        } else {
-    //            // First get location from Network Provider
-    //            if (isNetworkEnabled) {
-    //                mLocationManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER,  MIN_TIME_BW_UPDATES,  MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-    //                Log.d("Network", "Network");
-    //                if (mLocationManager != null) {
-    //                    location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-    //                    if (location != null) {
-    //                        lat = location.getLatitude();
-    //                        lng = location.getLongitude();
-    //                    }
-    //                }
-    //            }
-    //            //get the location by gps
-    //            if (isGPSEnabled) {
-    //                if (location == null) {
-    //                    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,MIN_TIME_BW_UPDATES,MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-    //                    Log.d("GPS Enabled", "GPS Enabled");
-    //                    if (mLocationManager != null) {location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-    //                        if (location != null) {
-    //                            lat = location.getLatitude();
-    //                            lng = location.getLongitude();
-    //                        }
-    //                    }
-    //                }
-    //            }
-    //        }
-//
-    //    } catch (Exception e) {
-    //        e.printStackTrace();
-    //    }
-//
-    //    return location;
-    //}
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
-        //if (mAuthTask2 != null) {
-        //    return;
-        //}
 
         if(mCloudEngine.IsBusy)
             return;
 
         // Reset errors.
         mEmailView.setError(null);
-        //mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
         mEmail = mEmailView.getText().toString();
@@ -531,14 +432,6 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
 
         boolean cancel = false;
         View focusView = null;
-
-
-        //// Check for a valid password, if the User entered one.
-        //if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-        //    mPasswordView.setError(getString(R.string.error_invalid_password));
-        //    focusView = mPasswordView;
-        //    cancel = true;
-        //}
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(mEmail)) {
@@ -568,6 +461,7 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
             focusView = mPhoneNumberView;
             cancel = true;
         }
+
         // Check for a valid phone.
         else if (isPhone10DigitsAdditionalZero(mPhoneNumber)){
             mPhoneNumberView.setText(mPhoneNumberView.getText().toString().substring(1));
@@ -593,9 +487,7 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
             // Show a progress spinner, and kick off a background task to
             // perform the User login attempt.
             showProgress(true);
-            //mAuthTask2 = new UserLoginTask(email, password, mUniquePhoneId);
-            //mAuthTask2.execute((Void) null);
-            //(+972 )Israel545989828
+
             mCountryCode = mSpinnerCountryCode.getSelectedItem().toString();
             mCountryCode = mCountryCode.substring(1, mCountryCode.lastIndexOf(')')).trim();
 
@@ -605,14 +497,10 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
             mUserData.RegistrationId = mRegistrationId;
 
             DataApiResult<DataUser> result = mCloudEngine.LoginLogon(mUserData, true);
-
-
-            //HandleLoginLogonResult(email, nickName, countryCode, phoneNumberFull, result);
         }
     }
 
     private void HandleLoginLogonResult(DataApiResult<DataUser> result) {
-        //mEmail, mNickName, mCountryCode, mPhoneNumber,
         View focusView;
         boolean cancel;
         if (result != null && result.Error == null && result.Result!=null) {
@@ -623,8 +511,6 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
                     d.RegistrationId.equals(mRegistrationId))
             {
                 writeUserToFile(mUserData.getAsJSON());
-
-                //
 
                 SendContacts(mUserData.Id,mPhoneNumber);
 
@@ -680,27 +566,22 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isNickNameValid(String nickName) {
-        //TODO: Replace this with your own logic
         return nickName.length()>5;
     }
 
     private boolean isPhoneNumber(String phoneNumber) {
-        //TODO: Replace this with your own logic
         return phoneNumber.length()== 9 && !phoneNumber.substring(0,1).equals("0");
     }
 
     private boolean isPhone10DigitsAdditionalZero(String phoneNumber) {
-        //TODO: Replace this with your own logic
         return phoneNumber.length()== 10 &&  phoneNumber.substring(0,1).equals("0");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -825,44 +706,6 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
         editor.putInt(PROPERTY_APP_VERSION, appVersion);
         editor.commit();
     }
-
-    ///    //todo: check how to clean up
-    ///    //@Override
-    ///    //protected void onCancelled() {
-    ///    //    mAuthTask2 = null;
-    ///    //    showProgress(false);
-    ///    //}
-    ///}
-
-   //public void onClick(final View view) {
-   //    if (view == findViewById(R.id.send)) {
-   //        new AsyncTask<String, String ,String>(){
-   //            @Override
-   //            protected String doInBackground(String... params) {
-   //                String msg = "";
-   //                try {
-   //                    Bundle data = new Bundle();
-   //                    data.putString("my_message", "Hello World");
-   //                    data.putString("my_action",
-   //                            "com.google.android.gcm.demo.app.ECHO_NOW");
-   //                    String id = Integer.toString(msgId.incrementAndGet());
-   //                    gcm.send(SENDER_ID + "@gcm.googleapis.com", id, data);
-   //                    msg = "Sent message";
-   //                } catch (IOException ex) {
-   //                    msg = "Error :" + ex.getMessage();
-   //                }
-   //                return msg;
-   //            }
-
-   //            @Override
-   //            protected void onPostExecute(String msg) {
-   //                mDisplay.append(msg + "\n");
-   //            }
-   //        }.execute(null, null, null);
-   //    } else if (view == findViewById(R.id.clear)) {
-   //        mDisplay.setText("");
-   //    }
-   //}
 }
 
 

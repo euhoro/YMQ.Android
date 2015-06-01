@@ -58,7 +58,10 @@ public class MainTabbedActivity extends FragmentActivity implements YmarqCallbac
         String mUniquePhoneId = UrlHelper.GetPhoneId4(this);
         PhoneEngine.getInstance().setApplicationContext(getApplicationContext());
         String userSerialized = PhoneEngine.getInstance().getUserDataById2(mUniquePhoneId, true);
+
+        //if there is nothing se
         if(false == userSerialized.length()>0)
+              //&& (getIntent()!=null && false == getIntent().hasExtra(Intent.EXTRA_TEXT)))
         {
             Intent ourIntent = new Intent(this, LoginActivity.class);
             startActivity(ourIntent);

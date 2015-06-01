@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ymarq.eu.ymarq" >
-
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="18" />
@@ -184,11 +186,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ymarq.eu.activities.MainTabbedActivity" />
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.ymarq.eu.subscriptions.SubscriptionActivity"

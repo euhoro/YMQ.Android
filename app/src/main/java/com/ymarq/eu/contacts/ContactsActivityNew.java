@@ -27,9 +27,6 @@ public class ContactsActivityNew extends FragmentActivity {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_contacts_activity_new);
        if (savedInstanceState == null) {
-           //getFragmentManager().beginTransaction()
-           //        .add(R.id.container, new FragmentContactsNew())
-           //        .commit();
            getSupportFragmentManager().beginTransaction()
                    .add(R.id.container, new FragmentContactsNew())
                    .commit();
