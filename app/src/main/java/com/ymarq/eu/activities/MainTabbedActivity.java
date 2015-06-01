@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -16,15 +17,18 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.ymarq.eu.business.CloudEngine;
+import com.ymarq.eu.business.PhoneEngine;
 import com.ymarq.eu.common.YmarqCallback;
 import com.ymarq.eu.contacts.ContactsActivityNew;
 import com.ymarq.eu.entities.DataUser;
+import com.ymarq.eu.login.LoginActivity;
 import com.ymarq.eu.messagestree.FragmentMessageTree;
 import com.ymarq.eu.messagestree.MessageTreeActivity;
 import com.ymarq.eu.news.NewsActivityNew;
 import com.ymarq.eu.products.ProductsBuyerFragment2;
 import com.ymarq.eu.subscriptions.SubscriptionActivity;
 import com.ymarq.eu.tabs.SlidingTabsColorsFragment;
+import com.ymarq.eu.utilities.UrlHelper;
 import com.ymarq.eu.ymarq.R;
 
 import java.io.File;
@@ -50,6 +54,20 @@ public class MainTabbedActivity extends FragmentActivity implements YmarqCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String mUniquePhoneId = UrlHelper.GetPhoneId4(this);
+        PhoneEngine.getInstance().setApplicationContext(getApplicationContext());
+        String userSerialized = PhoneEngine.getInstance().getUserDataById2(mUniquePhoneId, true);
+        if(false == userSerialized.length()>0)
+        {
+            Intent ourIntent = new Intent(this, LoginActivity.class);
+            startActivity(ourIntent);
+            finish();
+        }
+        else {
+            this.getIntent().putExtra(Intent.EXTRA_TEXT, userSerialized);
+        }
+
         setContentView(R.layout.activity_main_tabbed);
 
         if (savedInstanceState == null) {
@@ -60,7 +78,7 @@ public class MainTabbedActivity extends FragmentActivity implements YmarqCallbac
         }
 
         //sets the focus out of texbox
-        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         // Create global configuration and initialize ImageLoader with this config
         //ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();

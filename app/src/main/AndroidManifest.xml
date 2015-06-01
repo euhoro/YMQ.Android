@@ -36,7 +36,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <!-- Permissions required to know what country the user in -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
 
     <!-- Permissions required by the sync adapter -->
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
@@ -82,7 +82,7 @@
             android:syncable="true" />
 
         <activity
-            android:name="com.ymarq.eu.login.LoginActivity"
+            android:name="com.ymarq.eu.activities.MainTabbedActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
@@ -90,14 +90,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.ymarq.eu.messages.MessageActivity"
-            android:label="@string/title_activity_seller_chat"
-            android:parentActivityName="com.ymarq.eu.activities.MainTabbedActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ymarq.eu.activities.MainTabbedActivity" />
         </activity>
         <activity
             android:name="com.ymarq.eu.activities.SettingsActivity"
@@ -178,9 +170,9 @@
         </service>
 
         <activity
-            android:name="com.ymarq.eu.activities.MainTabbedActivity"
+            android:name="com.ymarq.eu.login.LoginActivity"
             android:label="@string/title_activity_main_tabbed"
-            android:parentActivityName="com.ymarq.eu.login.LoginActivity" >
+            android:parentActivityName="com.ymarq.eu.activities.MainTabbedActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ymarq.eu.login.LoginActivity" />

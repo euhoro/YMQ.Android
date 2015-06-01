@@ -234,7 +234,7 @@ public class SlidingTabsColorsFragment extends Fragment {
          */
         @Override
         public Fragment getItem(int i) {
-            boolean isMe = false;
+            boolean isMe = true;
             Intent intent = getActivity().getIntent();
             if (intent!=null && intent.hasExtra(Intent.EXTRA_TEXT)) {
                 String userJson = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -242,8 +242,8 @@ public class SlidingTabsColorsFragment extends Fragment {
 
                 String userSerialized = PhoneEngine.getInstance().getUserDataById2("", true);
                 DataUser userMe = DataUser.getFromJson(userSerialized);
-                if (userMe.Id.equals(user.Id))
-                    isMe = true;
+                if (false == userMe.Id.equals(user.Id))
+                    isMe = false;
             }
             switch(i)
             {

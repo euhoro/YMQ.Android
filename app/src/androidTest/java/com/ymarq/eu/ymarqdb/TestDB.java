@@ -75,7 +75,7 @@ public class TestDB extends AndroidTestCase {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Create a new map of values, where column names are the keys
-        ContentValues testValues = getUserValues();
+        ContentValues testValues = TestUtilities.createUserValues();
 
         //long userId;
         mUserId = db.insert(ProductsContract.UserEntry.TABLE_NAME, null, testValues);
@@ -116,7 +116,7 @@ public class TestDB extends AndroidTestCase {
         ProductsDbHelper dbHelper = new ProductsDbHelper(mContext);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues testValues = getProductsValues();
+        ContentValues testValues = TestUtilities.createProductValues(mUserId);
 
         long productId;
         productId = db.insert(ProductsContract.ProductEntry.TABLE_NAME, null, testValues);
@@ -229,48 +229,6 @@ public class TestDB extends AndroidTestCase {
         assertFalse("there is more than one record",cursor.moveToNext());
 
         dbHelper.close();
-    }
-
-
-    private ContentValues getUserValues() {
-        //ContentValues values = new ContentValues();
-        //// Test data we're going to insert into the DB to see if it works.
-        //String user_id = "123456";
-        //String user_email = "eu@eu.com";
-        //String user_nickname = "eu_nick";
-        //double user_phone_country = 972.05;
-        //double user_phone_number = 4545.05;
-        //String user_password = "12346";
-////
-        //values.put(ProductsContract.UserEntry.COLUMN_USER_ID2, user_id);
-        //values.put(ProductsContract.UserEntry.COLUMN_USER_EMAIL, user_email);
-        //values.put(ProductsContract.UserEntry.COLUMN_USER_NICKNAME, user_nickname);
-        //values.put(ProductsContract.UserEntry.COLUMN_USER_PHONE_COUNTRY, user_phone_country);
-        //values.put(ProductsContract.UserEntry.COLUMN_USER_PHONE_NUMBER, user_phone_number);
-        //values.put(ProductsContract.UserEntry.COLUMN_USER_IS_ME,1);
-        //values.put(ProductsContract.UserEntry.COLUMN_USER_PASSWORD, user_password);
-////
-        //values.put(ProductsContract.UserEntry.COLUMN_USER_IS_FRIEND, 0);
-        //values.put(ProductsContract.UserEntry.COLUMN_USER_PHONE_NUMBER_FULL, "+972545989828");
-        //return values;
-        return TestUtilities.createUserValues();
-    }
-
-    private ContentValues getProductsValues() {
-        //String productDescription = "mazda 3";
-        //ContentValues values = new ContentValues();
-        //values.put(ProductsContract.ProductEntry.COLUMN_USER_ID,mUserId);
-        //values.put(ProductsContract.ProductEntry.COLUMN_USER_ID2,"1234");
-        //values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_ID2,"1234");
-        //values.put(ProductsContract.ProductEntry.COLUMN_DESCRIPTION,productDescription);
-        //values.put(ProductsContract.ProductEntry.COLUMN_LOC_KEY,mLocationId);
-        //values.put(ProductsContract.ProductEntry.COLUMN_HASHTAG ,productDescription);
-        //values.put(ProductsContract.ProductEntry.COLUMN_IMAGE_LINK ,"");
-        //values.put(ProductsContract.ProductEntry.COLUMN_IMAGE_LOCAL ,"");
-        //values.put(ProductsContract.ProductEntry.COLUMN_DATETEXT ,"");
-        //values.put(ProductsContract.ProductEntry.COLUMN_PRODUCT_TYPE_ID ,0);
-        //return values;
-        return TestUtilities.createProductValues(mUserId);
     }
 
     private ContentValues getSubscriptionValues() {

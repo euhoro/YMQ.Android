@@ -22,12 +22,12 @@ import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -63,7 +63,6 @@ import java.util.regex.Pattern;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>,IOnUserReceived{
-
 
         @Override
         public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -368,18 +367,23 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
         }
     }
     private void startMainActivity(){
-        //SendContacts(mUserData.Id);
-        Intent ourIntent = new Intent(this, MainTabbedActivity.class)
-                .putExtra(Intent.EXTRA_TEXT, mUserData.getAsJSON() );
+       hideKeyboard();
 
-        //writeUserToSharedPreferences(mUserData.getAsJSON());
-        //mPhoneEngine.addUserAsync(mUserData);
+       Intent ourIntent = new Intent(this, MainTabbedActivity.class)
+               .putExtra(Intent.EXTRA_TEXT, mUserData.getAsJSON() );
 
-        startActivity(ourIntent);
+       startActivity(ourIntent);
 
         YmarqSyncAdapter.initializeSyncAdapter(this);
 
         finish();
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager inputManager =
+                (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(mPhoneNumberView.getWindowToken(), 0);
     }
 
 
@@ -402,7 +406,7 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
         sendBroadcast(intent2);
 
         //the order is very important here since the users should be already udated
-        DeviceService.startActionUpdateContactsStatus(this.getApplicationContext(), mUserData.Id,false);
+        DeviceService.startActionUpdateContactsStatus(this.getApplicationContext(), mUserData.Id, false);
         DeviceService.startActionGetProductsAsync(this.getApplicationContext(), mUserData.getId(),false);//buyer
         //DeviceService.startActionGetProductsAsync(this.getApplicationContext(), mUserData.Id,true);//seller
 
