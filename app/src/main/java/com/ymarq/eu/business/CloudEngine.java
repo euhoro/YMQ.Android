@@ -236,14 +236,12 @@ public class CloudEngine implements IAuthenticationService, IProductService, IMe
                         new TypeReference<DataApiResult<DataUser>>() {
                         });
                 //
-                if (resultUser.Result == null || resultUser.Result.RegistrationId == null || !resultUser.Result.RegistrationId.equals(dataUser.RegistrationId)) {
+                if (false == isUserDifferentThenInServer(dataUser, resultUser) && isNewUserOrNewInstallation(dataUser, resultUser)) {
+
                     dataUrlContent.ExpectedArrayResult = ResultArrayTypes.OneUser;
                     resultUser = Logon(dataUser, async2);
                 }
-                else if (resultUser.Result!=null &&
-                        (!resultUser.Result.Email.equals(dataUser.Email)||
-                        !resultUser.Result.Name.equals( dataUser.Name) ||
-                        !resultUser.Result.Phone.equals(dataUser.Phone) ) )
+                else if (isUserDifferentThenInServer(dataUser, resultUser))
                 {//not the same data
                     if (userReceivedListener != null)
                         userReceivedListener.fireOnOneUserReceived(resultUser);
@@ -255,20 +253,6 @@ public class CloudEngine implements IAuthenticationService, IProductService, IMe
                         userReceivedListener.fireOnOneUserReceived(resultUser);
                 }
             }
-           //else
-           //{
-           //    result = genericPostTask.execute(dataUrlContent).get();
-           //    resultUser = mObjectMapper.readValue(result,
-           //            new TypeReference<DataApiResult<DataUser>>() {
-           //            });
-           //    //GetGcmRegistrationKeyTask getGcmRegistrationKeyTask = new GetGcmRegistrationKeyTask();
-           //    //DataApiResult<String> resKey = getGcmRegistrationKeyTask.execute("").get();
-           //    //dataUser.RegistrationId = resKey.Result;
-
-           //    //this condition is duplicated
-           //    if (resultUser.Result == null || resultUser.Result.RegistrationId == null || !resultUser.Result.RegistrationId.equals(dataUser.RegistrationId))
-           //        resultUser = Logon(dataUser, async);
-           //}
         }
         catch (Exception ex){
             resultUser = new DataApiResult<DataUser>(null, getErrorFromServerString(result,ex));
@@ -277,6 +261,17 @@ public class CloudEngine implements IAuthenticationService, IProductService, IMe
         }
 
         return resultUser;
+    }
+
+    private boolean isNewUserOrNewInstallation(DataUser dataUser, DataApiResult<DataUser> resultUser) {
+        return resultUser.Result == null || resultUser.Result.RegistrationId == null || !resultUser.Result.RegistrationId.equals(dataUser.RegistrationId);
+    }
+
+    private boolean isUserDifferentThenInServer(DataUser dataUser, DataApiResult<DataUser> resultUser) {
+        return resultUser.Result!=null &&
+                (!resultUser.Result.Email.equals(dataUser.Email)||
+                !resultUser.Result.Name.equals( dataUser.Name) ||
+                !resultUser.Result.Phone.equals(dataUser.Phone) );
     }
 
     /// <summary>

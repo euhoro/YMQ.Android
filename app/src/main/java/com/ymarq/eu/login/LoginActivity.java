@@ -385,21 +385,10 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
 
     private void SendContacts(String userId,String userPhoneNumber)
     {
-        //List<DataFriendContact> contacts = mPhoneEngine.readContactFromDevice();
-
-        //by default all contacts are selected
-        //for(DataFriendContact cont :contacts)
-        //    cont.setIsSelected(true);
-
         String countryCode = mSpinnerCountryCode.getSelectedItem().toString();
         String[] items = countryCode.split(" ");
         int cCodeInt =Integer.parseInt(items[0].replace("(+", "").trim());
-        //.mPhoneEngine.writeContactsToDb(contacts,null,cCodeInt);//integer country code
         DeviceService.startActionHandleContactsFirst(this, cCodeInt,userId);
-
-        //contacts = mPhoneEngine.readContactFromProvider(); //formated numbers
-
-        //mPhoneEngine.sendContacts3(userId,contacts);
     }
 
     private void StartNotificationServiceFirstTime() {
@@ -413,7 +402,7 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
         sendBroadcast(intent2);
 
         //the order is very important here since the users should be already udated
-        DeviceService.startActionUpdateContacts(this.getApplicationContext(), mUserData.Id);
+        DeviceService.startActionUpdateContactsStatus(this.getApplicationContext(), mUserData.Id,false);
         DeviceService.startActionGetProductsAsync(this.getApplicationContext(), mUserData.getId(),false);//buyer
         //DeviceService.startActionGetProductsAsync(this.getApplicationContext(), mUserData.Id,true);//seller
 

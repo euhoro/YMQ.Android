@@ -162,7 +162,8 @@ public class FragmentContactsNew extends android.support.v4.app.Fragment impleme
         //if (mFromSettings) //with this you can stop always update but now there is a setting with witch you can dismiss he dialog
         // UpdateContactsStatus();
 
-        DeviceService.startActionUpdateContacts(getActivity(),mUserData.Id);
+
+        DeviceService.startActionUpdateContactsStatus(getActivity(), mUserData.Id, false);
 
         // TODO - Attach the adapter to this ListActivity's ListView //eugen
         mListViewContacts.setAdapter(mAdapter);
@@ -211,7 +212,10 @@ public class FragmentContactsNew extends android.support.v4.app.Fragment impleme
         mButtonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //SendContacts();
+                //if the user made changes in the friends list , this should be updated
+                //todo : in the future there should be a list of friends per product
+                DeviceService.startActionUpdateFriends(getActivity(), mUserData.Id, true);
+                //
                 mButtonOk.setChecked(false);
                 //writeContactsToSharedPreferences(ContactItem.getJsonFromList(mPhoneList),YMQConst.TEXT_SHARED_PREF_CONTACTS_SHARED_KEY);
 
@@ -308,7 +312,7 @@ public class FragmentContactsNew extends android.support.v4.app.Fragment impleme
 
     private void SendSmses()
     {
-        List<DataFriendContact> phoneList = mPhoneEngine.readContactFromProvider();
+        List<DataFriendContact> phoneList = mPhoneEngine.readContactFromProvider(true);
         ArrayList<String> numbers = new ArrayList<>();
         String numbersStr = "";
         for(DataFriendContact c: phoneList)

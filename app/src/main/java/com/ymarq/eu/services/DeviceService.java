@@ -62,11 +62,14 @@ public class DeviceService extends IntentService {
 
 
     private static final String ACTION_HANDLE_CONTACTS_FIRST = "com.ymarq.eu.services.action.ACTION_HANDLE_CONTACTS_FIRST";
-    private static final String ACTION_HANDLE_CONTACTS_UPDATE = "com.ymarq.eu.services.action.ACTION_HANDLE_CONTACTS_UPDATE";
+    private static final String ACTION_HANDLE_CONTACTS_STATUS = "com.ymarq.eu.services.action.ACTION_HANDLE_CONTACTS_STATUS";
+    private static final String ACTION_HANDLE_FRIENDS_UPDATE = "com.ymarq.eu.services.action.ACTION_HANDLE_FRIENDS_UPDATE";
 
     // TODO: Rename parameters
     private static final String EXTRA_USER_ID2 = "com.ymarq.eu.services.extra.EXTRA_USER_ID2";
     private static final String EXTRA_USER_IS_ME = "com.ymarq.eu.services.extra.EXTRA_USER_IS_ME";
+
+    private static final String EXTRA_ONLY_SELECTED = "com.ymarq.eu.services.extra.EXTRA_ONLY_SELECTED";
 
     //private static final String EXTRA_REAL_USER_ID2 = "com.ymarq.eu.services.extra.EXTRA_REAL_USER_ID2";
     private static final String EXTRA_PRODUCT_ID2 = "com.ymarq.eu.services.extra.EXTRA_PRODUCT_ID2";
@@ -89,6 +92,11 @@ public class DeviceService extends IntentService {
                 final String param1 = intent.getStringExtra(EXTRA_USER_ID2);
                 handleActionSubscriptionToDeviceAsync(param1);
             }
+            else if (ACTION_HANDLE_FRIENDS_UPDATE.equals(action)) {
+                final String param1 = intent.getStringExtra(EXTRA_USER_ID2);
+                final boolean param2 = intent.getBooleanExtra(EXTRA_ONLY_SELECTED, false);
+                handleFriendsUpdate(param1, param2);
+            }
             else if (ACTION_GET_PRODUCTS_ASYNC.equals(action)) {
                 final String param1 = intent.getStringExtra(EXTRA_USER_ID2);
                 final boolean param2 = intent.getBooleanExtra(EXTRA_IS_PRODUCT_MINE, true);
@@ -104,7 +112,7 @@ public class DeviceService extends IntentService {
             else if (ACTION_DELETE_PRODUCT.equals(action)) {
                 final String param2 = intent.getStringExtra(EXTRA_PRODUCT_ID2);
                 final boolean param3 = intent.getBooleanExtra(EXTRA_IS_PRODUCT_MINE, false);
-                handleActionDeleteProduct(param2,param3);
+                handleActionDeleteProduct(param2, param3);
             }
             else if (ACTION_LEAVE_PRODUCT.equals(action)) {
                 final String param2 = intent.getStringExtra(EXTRA_PRODUCT_ID2);
@@ -115,9 +123,10 @@ public class DeviceService extends IntentService {
                 final String userId = intent.getStringExtra(EXTRA_USER_ID2);
                 final int contryCode = intent.getIntExtra(EXTRA_COUNTRY_CODE, 0);
                 handleActionHandleContacts(contryCode, userId);
-            } else if (ACTION_HANDLE_CONTACTS_UPDATE.equals(action)) {
+            } else if (ACTION_HANDLE_CONTACTS_STATUS.equals(action)) {
                 final String userId = intent.getStringExtra(EXTRA_USER_ID2);
-                handleActionUpdateContacts(userId);
+                final boolean onlySelected = intent.getBooleanExtra(EXTRA_ONLY_SELECTED, false);
+                handleActionUpdateContacts(userId,onlySelected);
             }
         }
     }
@@ -167,16 +176,27 @@ public class DeviceService extends IntentService {
         context.startService(intent);
     }
 
-    public static void startActionUpdateContacts  (Context context,String userId2)
+
+    public static void startActionUpdateFriends(Context context,String userId2,boolean onlySelected)
     {
         Intent intent = new Intent(context, DeviceService.class);
         intent.putExtra(EXTRA_USER_ID2, userId2);
-        intent.setAction(ACTION_HANDLE_CONTACTS_UPDATE);
+        intent.putExtra(EXTRA_ONLY_SELECTED, onlySelected);
+        intent.setAction(ACTION_HANDLE_FRIENDS_UPDATE);
         context.startService(intent);
     }
 
-    private void handleActionUpdateContacts(String userId2) {
-        List<DataFriendContact> phoneList = PhoneEngine.getInstance().readContactFromProvider();
+    public static void startActionUpdateContactsStatus  (Context context,String userId2,boolean onlySelected)
+    {
+        Intent intent = new Intent(context, DeviceService.class);
+        intent.putExtra(EXTRA_USER_ID2, userId2);
+        intent.putExtra(EXTRA_ONLY_SELECTED, onlySelected);
+        intent.setAction(ACTION_HANDLE_CONTACTS_STATUS);
+        context.startService(intent);
+    }
+
+    private void handleActionUpdateContacts(String userId2,boolean onlySelected) {
+        List<DataFriendContact> phoneList = PhoneEngine.getInstance().readContactFromProvider(onlySelected);
 
         DataGroupFriends df = new DataGroupFriends();
         df.UserId = userId2;
@@ -231,8 +251,6 @@ public class DeviceService extends IntentService {
                         PhoneEngine.getInstance().insertProductsDataInProvider(resultCloud.Result);//, userId);
                         //result =  PhoneEngine.getInstance().getProductsDataById2(userId);//again from provider
                         InsertMessages(resultCloud);
-
-
                     }
                 }
                 //return result;
@@ -244,17 +262,7 @@ public class DeviceService extends IntentService {
                 //PhoneEngine.getInstance().deleteProductsByUserId(userId);
                 PhoneEngine.getInstance().insertProductsDataInProvider(resultCloud.Result);//, null);//not my products
                 InsertMessages(resultCloud);
-                //result =  PhoneEngine.getInstance().getProductsDataById2(userId);//again from provider
-
-                /////add the messages
-                //for (DataProduct dp : resultCloud.Result) {
-                //    DataApiResult<List<DataMessage>> res = CloudEngine.getInstance().GetMessages(UUID.fromString(dp.Id), false);
-                //    for (DataMessage dm : res.Result) {
-                //        PhoneEngine.getInstance().addMessageToProvider(dm, dp.UserId);
-                //    }
-                //}
             }
-
         }
     }
 
@@ -287,7 +295,9 @@ public class DeviceService extends IntentService {
             PhoneEngine.getInstance().addProductToProvider(res.Result);
 
             DataMessage dm = new DataMessage(res.Result.Description, dp.UserId, res.Result.Id);
-            CloudEngine.getInstance().SendMessage(dm, true);
+            DataApiResult<Boolean> resMessage = CloudEngine.getInstance().SendMessage(dm, true);
+            //if (resMessage.Result == true)
+                //PhoneEngine.getInstance().addMessageToProvider(dm,dm.SenderId);
         }
     }
 
@@ -334,8 +344,9 @@ public class DeviceService extends IntentService {
 
         res = CloudEngine.getInstance().LeaveProduct(dp, userId,false);
 
-        if (res.Error == null && res.Result == true)
+        if (res.Error == null && res.Result == true) {
             PhoneEngine.getInstance().deleteProduct(obj.Id);
+        }
     }
 
     public static void startActionHandleContactsFirst(Context context, int countryCode, String userId) {
@@ -356,12 +367,12 @@ public class DeviceService extends IntentService {
 
         //todo - remove this to one call
         PhoneEngine.getInstance().writeContactsToProvider(contacts, null, countryCode);//integer country code
-        handleFriendsUpdate(userId);
+        handleFriendsUpdate(userId,false);
     }
 
-    private void handleFriendsUpdate(String userId) {
+    private void handleFriendsUpdate(String userId,boolean onlySelected) {
         List<DataFriendContact> contacts;
-        contacts = PhoneEngine.getInstance().readContactFromProvider(); //formated numbers
+        contacts = PhoneEngine.getInstance().readContactFromProvider(onlySelected); //formated numbers
 
         DataGroupFriends df = new DataGroupFriends();
         df.Members = contacts;

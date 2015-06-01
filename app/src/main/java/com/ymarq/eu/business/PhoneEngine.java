@@ -550,12 +550,31 @@ public class PhoneEngine {
                 param
         );
 
+
+        String filter2 = ProductsContract.MessageEntry.COLUMN_MESSAGE_PRODUCT_ID2 + " = ?";
+        String[] param2 = new String[]{productId};
+
+        int deleteCount2 = this.applicationContext.getContentResolver().delete(
+                ProductsContract.MessageEntry.CONTENT_URI,
+                filter2,
+                param2
+        );
+
         return deleteCount>0;
     }
 
 
-    public List<DataFriendContact> readContactFromProvider() {
+    public List<DataFriendContact> readContactFromProvider(boolean onlySelected) {
         List<DataFriendContact> contacts = new ArrayList<>();
+
+        String filter = null;
+        String[] filterValues = null;
+
+        if (onlySelected)
+        {
+            filter =   ProductsContract.UserEntry.COLUMN_USER_IS_FRIEND + " = ?";
+            filterValues = new String[]{"1"};
+        }
 
         Cursor userCursor = applicationContext.getContentResolver().query(
                 ProductsContract.UserEntry.CONTENT_URI,
@@ -570,8 +589,8 @@ public class PhoneEngine {
                 },
                 //ProductsContract.UserEntry.COLUMN_USER_IS_CONTACT + " = ?",
                 //new String[]{"1"},
-                null,
-                null,
+                filter,
+                filterValues,
                 null);
 
         if (userCursor.getCount()>0 ) {
@@ -779,30 +798,36 @@ public class PhoneEngine {
 
     private long addMessage(DataMessage dm, long userId,long productId)
      {
-        long messageInternalId;
+         try {
+             long messageInternalId;
 
-            ContentValues values = new ContentValues();
+             ContentValues values = new ContentValues();
 
-            values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_ID2,dm.Id);
-            values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_PRODUCT_ID2 ,dm.ProductId);
-            values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_SENDER_ID2  ,dm.SenderId);
-            values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_CONTENT ,dm.Content);
-            values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_TO_USER_ID ,dm.ToUserId);
-            values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_CREATE_DATE ,dm.CreateDate);
-            values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_PRODUCT_ID ,productId);
-            values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_SENDER_NAME ,dm.SenderName);
+             values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_ID2, dm.Id);
+             values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_PRODUCT_ID2, dm.ProductId);
+             values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_SENDER_ID2, dm.SenderId);
+             values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_CONTENT, dm.Content);
+             values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_TO_USER_ID, dm.ToUserId);
+             values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_CREATE_DATE, dm.CreateDate);
+             values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_PRODUCT_ID, productId);
+             values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_SENDER_NAME, dm.SenderName);
 
-            values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_SENDER_ID, userId);
+             values.put(ProductsContract.MessageEntry.COLUMN_MESSAGE_SENDER_ID, userId);
 
-            // Finally, insert location data into the database.
-            Uri insertedUri = applicationContext.getContentResolver().insert(
-                    ProductsContract.MessageEntry.CONTENT_URI,
-                    values
-            );
+             // Finally, insert location data into the database.
+             Uri insertedUri = applicationContext.getContentResolver().insert(
+                     ProductsContract.MessageEntry.CONTENT_URI,
+                     values
+             );
 
-            // The resulting URI contains the ID for the row.  Extract the User from the Uri.
-         messageInternalId = ContentUris.parseId(insertedUri);
-        return messageInternalId;
+             // The resulting URI contains the ID for the row.  Extract the User from the Uri.
+             messageInternalId = ContentUris.parseId(insertedUri);
+             return messageInternalId;
+         }
+         catch(Exception ex) {
+            String str = ex.toString();
+             return  -1;
+         }
     }
 
     public long addUserAsync(DataUser mUserData){

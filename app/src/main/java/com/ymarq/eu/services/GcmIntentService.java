@@ -69,21 +69,12 @@ public class GcmIntentService extends IntentService {
                     this.startService(service);
                     HandleDeleteProduct(intent);
                 }
+
                 //else ( somethimes google just sends ping on the first use ( login )
-
-
                 String broadcastAction = "Blabla";
                 //sent message receive so it can be shown in
                 Intent broadcastIntent = new Intent(broadcastAction);
-
-                //Bundle extras = new Bundle();
-                //extras.putString("send_data_product", product.getAsJSON());
-                //broadcastIntent.putExtras(extras);
-
                 getApplicationContext().sendBroadcast(broadcastIntent);
-
-
-                //if (HandleNotification(intent)) return;
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
