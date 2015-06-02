@@ -81,19 +81,38 @@ public class MainTabbedActivity extends FragmentActivity implements YmarqCallbac
 
         // Create global configuration and initialize ImageLoader with this config
         //ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoaderConfiguration config;
 
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
-                //.maxImageWidthForMemoryCache(800)
-                //.maxImageHeightForMemoryCache(800)
-                //.httpConnectTimeout(5000)
-                //.httpReadTimeout(30000)
-                .threadPoolSize(5)
-                .threadPriority(Thread.MIN_PRIORITY + 2)
-                .denyCacheImageMultipleSizesInMemory()
-                .memoryCache(new UsingFreqLimitedMemoryCache(2000000)) // You can pass your own memory cache implementation
-                .discCache(new UnlimitedDiscCache(getPhotoDirectory())) // You can pass your own disc cache implementation
-                .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
-                .build();
+        File diskCache = getPhotoDirectory();
+        if (diskCache!= null) {
+            config = new ImageLoaderConfiguration.Builder(this)
+                    //.maxImageWidthForMemoryCache(800)
+                    //.maxImageHeightForMemoryCache(800)
+                    //.httpConnectTimeout(5000)
+                    //.httpReadTimeout(30000)
+                    .threadPoolSize(5)
+                    .threadPriority(Thread.MIN_PRIORITY + 2)
+                    .denyCacheImageMultipleSizesInMemory()
+                    .memoryCache(new UsingFreqLimitedMemoryCache(2000000)) // You can pass your own memory cache implementation
+                    .discCache(new UnlimitedDiscCache(diskCache)) // You can pass your own disc cache implementation
+                    .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
+                    .build();
+        }
+        else
+        {
+            config = new ImageLoaderConfiguration.Builder(this)
+                    //.maxImageWidthForMemoryCache(800)
+                    //.maxImageHeightForMemoryCache(800)
+                    //.httpConnectTimeout(5000)
+                    //.httpReadTimeout(30000)
+                    .threadPoolSize(5)
+                    .threadPriority(Thread.MIN_PRIORITY + 2)
+                    .denyCacheImageMultipleSizesInMemory()
+                    .memoryCache(new UsingFreqLimitedMemoryCache(2000000)) // You can pass your own memory cache implementation
+                         //NO CACHE - NO SURE WHEN THIS IS HAPPENING
+                    .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
+                    .build();
+        }
 
         ImageLoader.getInstance().init(config);
 
@@ -106,6 +125,11 @@ public class MainTabbedActivity extends FragmentActivity implements YmarqCallbac
             if (tabToOpen!=-1) {
                 // Open the right tab
             }
+        }
+        else
+        {
+            intent.putExtra(Intent.EXTRA_TEXT,userSerialized);
+            mUserData2 = DataUser.getFromJson(userSerialized);
         }
     }
 
@@ -194,10 +218,10 @@ public Uri CapturedImageURI;
         //    OpenPrefferedLocationApp();
         //    return true;
         //}
-        //else if (id == R.id.action_news) {
-        //    OpenNews();
-        //    return true;
-        //}
+        else if (id == R.id.action_news) {
+            OpenNews();
+            return true;
+        }
         else if (id == R.id.action_contacts) {
             OpenContacts();
             return true;
