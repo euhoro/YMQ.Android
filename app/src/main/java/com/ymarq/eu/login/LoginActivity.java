@@ -80,7 +80,7 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
 
         @Override
         public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-            List<String> emails = new ArrayList<String>();
+            List<String> emails = new ArrayList<>();
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 emails.add(cursor.getString(ProfileQuery.ADDRESS));
@@ -221,7 +221,8 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                if (checkPlayServices())
+                    attemptLogin();
             }
         });
 
@@ -239,7 +240,7 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
 
         final SharedPreferences prefs = getGCMPreferences(context);
         String registrationId = prefs.getString(PROPERTY_REG_ID, "");
-        if (registrationId.isEmpty()) {
+        if (registrationId == null || registrationId.isEmpty()) {
             Log.i(TAG, "Registration not found.");
             return "";
         }
@@ -377,14 +378,13 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
     {
         // here we can check if the user had this app installed
         //reinstalled
-        File outputDir = null;
         File pictureDir =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        outputDir = new File(pictureDir, "Ymarq");
+        File outputDir = new File(pictureDir, "Ymarq");
         if (outputDir.exists()) {
             String[] children = outputDir.list();
-            for (int i = 0; i < children.length; i++) {
-                new File(outputDir, children[i]).delete();
+            for(String child:children) {
+                new File(outputDir, child).delete();
             }
         }
         return true;
@@ -635,7 +635,7 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(LoginActivity.this,
+                new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
@@ -651,7 +651,7 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
         new AsyncTask<String,String,String>() {
             @Override
             protected String doInBackground(String... params) {
-                String msg = "";
+                String msg ;
                 try {
                     if (gcm == null) {
                         gcm = GoogleCloudMessaging.getInstance(context);
@@ -682,8 +682,6 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
 
             @Override
             protected void onPostExecute(String msg) {
-                //mDisplay.append(msg + "\n");
-                String s = msg;
             }
         }.execute(null, null, null);
 
